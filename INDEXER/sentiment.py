@@ -7,17 +7,11 @@ def parseSentiment(content,classifier):
     
     sentiment = classifier(content)
 
-    if sentiment[0].get('label') == 'positive':
-        return sentiment[0].get('score')
-    elif sentiment[0].get('label') == 'negative':
-        return -sentiment[0].get('score')
-    else:
-        return 0
-
+    return sentiment[0].get('label')
 #Generates a classifier
     
 def generateClassifier():
-    model_name = "cardiffnlp/twitter-roberta-base-sentiment-latest"
-    tokenizer = AutoTokenizer.from_pretrained(model_name, use_Fast = False)
+    model_name = "SamLowe/roberta-base-go_emotions"
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSequenceClassification.from_pretrained(model_name)
     return TextClassificationPipeline(model=model,tokenizer=tokenizer, task="text-classification")
