@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">TheSpoon</h1>
 
-## Getting Started
 
-First, run the development server:
+## What is TheSpoon?
+TheSpoon is a tool for searching trough restaurant reviews, built by food enjoyers for food enjoyers.
+<br></br>
+TheSpoon utilizes Sentiment Analysis and Information Retrieval techniques to allow users to search trough a selection of reviews of restaurants throughout the USA, accessible trough a JavaScript front-end.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Requirements
+Requirements are listed in the `/REQUIREMENTS/requirements.txt` file and can be installed by running `make install_requirements`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Indexing
+In the `DATASET` folder there is already a (relatively speaking) small selection of Yelp restaurant reviews retrieved from [Kaggle](https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset).
+<br></br>
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+By running `make index` or `python ./INDEXER/indexer.py` those reviews will be indexed and analyzed by using [Cardiff University NLP division's model](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment-latest).
+<br></br>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The index can be deleted, alongside the model's cache, by running `make delete_index`.
 
-## Learn More
+## Benchmarking
+The benchmarking data can be deleted by running `make delete benchmark`.
 
-To learn more about Next.js, take a look at the following resources:
+## Starting up
+To start up TheSpoon it is sufficient to run `make run`, then head to our [Vercel deployment](thespoon.vercel.app).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Authors
+[@riccardomassi](https://github.com/riccardomassi/)
+[@filipczuba](https://github.com/filipczuba/)

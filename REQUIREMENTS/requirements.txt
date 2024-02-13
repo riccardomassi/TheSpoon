@@ -1,4 +1,4 @@
-whoosh
-transformers
-nltk
-flask
+whoosh==2.7.4
+transformers==4.37.1
+nltk==3.8.1
+flask==3.0.2
