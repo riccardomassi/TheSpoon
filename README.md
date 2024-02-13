@@ -1,7 +1,7 @@
 <h1 align="center">TheSpoon</h1>
 
 <div align="center">
-  <img width="200" height="200" src="https://github.com/riccardomassi/TheSpoon/blob/main/GUI/public/light/light-mode-logo.png">
+  <img width="200" height="200" src="https://github.com/riccardomassi/TheSpoon/blob/main/GUI/public/dark/dark-mode-logo.png">
 </div>
 
 ## What is TheSpoon?
