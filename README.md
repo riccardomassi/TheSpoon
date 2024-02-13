@@ -3,6 +3,7 @@
 
 ## What is TheSpoon?
 TheSpoon is a tool for searching trough restaurant reviews, built by food enjoyers for food enjoyers.
+
 TheSpoon utilizes Sentiment Analysis and Information Retrieval techniques to allow users to search trough a selection of reviews of restaurants throughout the USA, accessible trough a JavaScript front-end.
 
 ## Requirements
