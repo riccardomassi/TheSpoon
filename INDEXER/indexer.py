@@ -1,5 +1,6 @@
 import json
 import os
+from datetime import datetime
 from whoosh.index import *
 from whoosh.fields import *
 from whoosh.analysis import LanguageAnalyzer, NgramAnalyzer
@@ -43,8 +44,9 @@ def indexDataset(analyzer):
         restaurantAddress = TEXT(stored = True, analyzer = analyzer),
         reviewText = TEXT(stored=True, analyzer=analyzer),
         reviewStars = NUMERIC(float, stored = True),
-        reviewTime = TEXT(stored=True),
+        reviewTime = DATETIME(stored=True),
         restaurantStars = NUMERIC(float, stored=True),
+        restaurantsCategories = TEXT(stored=True,analyzer=analyzer)
         sentiment = TEXT(stored=True) 
     )
 
@@ -64,8 +66,9 @@ def indexDataset(analyzer):
                     "restaurantAddress": str(restaurant.get('address') + " " + restaurant.get('city') + " " + restaurant.get('state')),
                     "reviewText": str(review.get('text')),
                     "reviewStars": float(review.get('stars')),
-                    "reviewTime": str(review.get('date')),
+                    "reviewTime": datetime.datetime.strptime(review.get('date',"%Y-%m-%d %H:%H:%S")),
                     "restaurantStars": float(restaurant.get('stars')),
+                    "restaurantCategories": str(review.get('categories')),
                     "sentiment": sentiment,
                 }
 
