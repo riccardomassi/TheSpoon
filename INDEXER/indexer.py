@@ -68,7 +68,7 @@ def indexDataset(analyzer):
                     "reviewStars": float(review.get('stars')),
                     "reviewTime": datetime.datetime.strptime(review.get('date'),"%Y-%m-%d %H:%M:%S"),
                     "restaurantStars": float(restaurant.get('stars')),
-                    "restaurantCategories": str(review.get('categories')),
+                    "restaurantCategories": str(restaurant.get('categories')),
                     "sentiment": sentiment,
                 }
 

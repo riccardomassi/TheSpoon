@@ -16,7 +16,7 @@ def parseSentiment(content,classifier):
 #Generates a classifier
     
 def generateClassifier():
-    model_name = "SamLowe/roberta-base-go_emotions"
+    model_name = "cardiffnlp/twitter-roberta-base-sentiment-latest"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSequenceClassification.from_pretrained(model_name)
     return TextClassificationPipeline(model=model,tokenizer=tokenizer, task="text-classification")
