@@ -20,7 +20,7 @@ The index can be deleted, alongside the model's cache, by running `make delete_i
 The benchmarking data can be deleted by running `make delete benchmark`.
 
 ## Starting up
-To start up TheSpoon it is sufficient to run `make run`, then head to our [Vercel deployment](thespoon.vercel.app).
+To start up TheSpoon it is sufficient to run `make run`, then head to our [Vercel deployment](https://thespoon.vercel.app).
 
 ## Authors
 [@riccardomassi](https://github.com/riccardomassi/)
