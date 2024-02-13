@@ -47,7 +47,7 @@ const Searchbar = () => {
 					<select
 						value={sentiment}
 						onChange={handleSentiment}
-						className="rounded p-2 bg-slate-300 dark:bg-slate-600 hover:dark:bg-slate-500 text-black dark:text-white"
+						className="rounded p-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-200 hover:dark:bg-slate-500 text-black dark:text-white"
 					>
 						<option value={'VeryPositive'}>Very Positive</option>
 						<option value={'Positive'}>Positive</option>
