@@ -1,3 +1,4 @@
 whoosh
 transformers
 nltk
+flask

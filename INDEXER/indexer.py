@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 from whoosh.index import *
 from whoosh.fields import *
-from whoosh.analysis import LanguageAnalyzer, NgramAnalyzer
+from whoosh.analysis import LanguageAnalyzer
 from sentiment import *
 
 #Loads data form dataset. Both datasets have one entry per line

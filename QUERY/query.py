@@ -1,9 +1,8 @@
 from enum import Enum
 from whoosh import qparser, scoring
 from whoosh.fields import *
-from whoosh.index import open_dir, exists_in, Index, FileIndex
+from whoosh.index import FileIndex
 from whoosh.qparser import MultifieldParser
-from whoosh.scoring import WeightingModel
 from whoosh.query import NumericRange, And, Or
 from whoosh.sorting import FieldFacet,ScoreFacet
 import nltk
@@ -26,18 +25,21 @@ def checkForTextCorrection(text: str) -> str:
     return 0
 
 
-def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str, correctedQuery: str, useQueryExpansion: bool, sentimentTags: sentimentClassifier, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
+def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str, useQueryExpansion: bool, sentimentTags: sentimentClassifier, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
 
+    #Selecting Scoring Model
     if not useDefaultRanking:
         ranking = scoring.TF_IDF
     else:
         ranking = scoring.BM25F
 
+    #Selecting Grouping Type
     if not useOrGroup:
         typeGrouping = qparser.AndGroup
     else:
         typeGrouping = qparser.OrGroup
 
+    #Selects field sorting
     if (sortTags == None) or (sortTags not in list(index.schema._fields)):
         facet = ScoreFacet()
     else:
@@ -49,11 +51,13 @@ def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str,
 
             queryList = [query]
             filterList = []
-            #generates query for minimum rating 
+
+            #generates filter for minimum rating 
             if minStarRating != None:
                 ratingQuery = NumericRange("restaurantStars",minStarRating,None)
                 filterList.append(ratingQuery)
             
+            #generates ecpanded query
             if useQueryExpansion:
                 queryTokens = nltk.word_tokenize(text)
                 synonyms = []
@@ -65,16 +69,16 @@ def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str,
                             synonyms.append(lemma.name())
                 expandedQuery = parser.parse(" ".join(synonyms[:3]))
                 queryList.append(expandedQuery)
-
-            if correctedQuery != None:
-                corrected = parser.parse(correctedQuery)
-                queryList.append(corrected)
             
             finalFilterList = And([filter for filter in filterList])
             finalQueryList = Or([query for query in queryList])
+
+            #Running search
             results = searcher.search(finalQueryList,filter=finalFilterList,limit=resultLimit,sortedby=facet)
             formatted_results=[]
             for result in results:
+
+                #Biases queries based on the sentiment selected
                 if sentimentTags != None and ((sentimentTags == sentimentClassifier.POS) or (sentimentTags == sentimentClassifier.NEG) and (numToLabel(float(result.get('sentiment',''))) == sentimentTags)):
                     result.score *= abs(1.5*float(result.get('sentiment','')))
                 elif (numToLabel(float(result.get('sentiment',''))) != sentimentClassifier.NEU):
