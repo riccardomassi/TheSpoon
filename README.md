@@ -23,5 +23,4 @@ The benchmarking data can be deleted by running `make delete benchmark`.
 To start up TheSpoon it is sufficient to run `make run`, then head to our [Vercel deployment](https://thespoon.vercel.app).
 
 ## Authors
-[@riccardomassi](https://github.com/riccardomassi/)
-[@filipczuba](https://github.com/filipczuba/)
+ University of Modena and Reggio Emilia undergraduates in Computer Science [@riccardomassi](https://github.com/riccardomassi/) and [@filipczuba](https://github.com/filipczuba/).
