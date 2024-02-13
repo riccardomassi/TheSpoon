@@ -9,29 +9,23 @@ import nltk
 from nltk.corpus import wordnet, stopwords
 
 class sentimentClassifier(Enum):
-    V_POS = 1
-    POS = 2
-    NEU = 3
-    NEG = 4
-    V_NEG =5
+    NEG = 1,
+    NEU = 2,
+    POS = 3
 
-def labelToSentiment(sentiment: sentimentClassifier) -> tuple:
-    if sentiment == sentimentClassifier.NEU:
-        return [0,0]
-    elif sentiment == sentimentClassifier.POS:
-        return [0,0.67]
-    elif sentiment == sentimentClassifier.V_POS:
-        return [0.67,1.0]
-    elif sentiment == sentimentClassifier.NEG:
-        return [-0.67 , 0]
+def numToLabel(sentiment: float):
+    if(sentiment>0):
+        return sentimentClassifier.POS
+    elif(sentiment < 0):
+        return sentimentClassifier.NEG
     else:
-        return [-1, -0.67]
+        return sentimentClassifier.NEU
 
 def checkForTextCorrection(text: str) -> str:
     return 0
 
 
-def querySearch(index: FileIndex, text: str, minStarRating: float, minDate: datetime, maxDate: datetime, correctedQuery: str, useQueryExpansion: bool, sentimentTags: sentimentClassifier, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
+def querySearch(index: FileIndex, text: str, minStarRating: float, correctedQuery: str, useQueryExpansion: bool, sentimentTags: sentimentClassifier, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
 
     if not useDefaultRanking:
         ranking = scoring.TF_IDF
@@ -66,16 +60,6 @@ def querySearch(index: FileIndex, text: str, minStarRating: float, minDate: date
                 expandedQuery = parser.parse(" ".join(synonyms[:3]))
                 queryList.append(expandedQuery)
 
-            if minDate != None and maxDate != None:
-                dateParser = DateRange("reviewTime",minDate,maxDate,False,False,True)
-                filterList.append(dateParser)
-            elif minDate != None:
-                dateParser = DateRange("reviewTime",minDate,None,False,False,True)
-                filterList.append(dateParser)
-            elif maxDate != None:
-                dateParser = DateRange("reviewTime",None,maxDate,False,False,True)
-                filterList.append(dateParser)
-
             if correctedQuery != None:
                 corrected = parser.parse(correctedQuery)
                 queryList.append(corrected)
@@ -85,6 +69,9 @@ def querySearch(index: FileIndex, text: str, minStarRating: float, minDate: date
             results = searcher.search(finalQueryList,filter=finalFilterList,limit=resultLimit)
             formatted_results=[]
             for result in results:
+                if sentimentTags != None and ((sentimentTags == sentimentClassifier.POS) or (sentimentTags == sentimentClassifier.NEG) and (numToLabel(float(result.get('sentiment',''))) == sentimentTags)):
+                    result.score *= abs(1.5*float(result.get('sentiment','')))
+
                 formatted_result = {
                     'restaurantID': result.get('restaurantID', ''),
                     'resturantName': result.get('resturantName', ''),
