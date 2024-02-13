@@ -1,5 +1,6 @@
 <h1 align="center">TheSpoon</h1>
 
+![Alt text](https://github.com/riccardomassi/TheSpoon/blob/main/GUI/public/light/light-mode-logo.png)
 
 ## What is TheSpoon?
 TheSpoon is a tool for searching trough restaurant reviews, built by food enjoyers for food enjoyers.
