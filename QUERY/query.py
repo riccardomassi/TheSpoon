@@ -77,7 +77,9 @@ def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str,
             for result in results:
                 if sentimentTags != None and ((sentimentTags == sentimentClassifier.POS) or (sentimentTags == sentimentClassifier.NEG) and (numToLabel(float(result.get('sentiment',''))) == sentimentTags)):
                     result.score *= abs(1.5*float(result.get('sentiment','')))
-
+                elif (numToLabel(float(result.get('sentiment',''))) != sentimentClassifier.NEU):
+                    result.score /= abs(1.5*float(result.get('sentiment','')))
+                    
                 formatted_result = {
                     'restaurantID': result.get('restaurantID', ''),
                     'resturantName': result.get('resturantName', ''),
@@ -101,19 +103,3 @@ index = open_dir("./GENERATED_INDEX")
 f = querySearch(index,"japanese restaurant",3.0,None,None,True,sentimentClassifier.POS,True,False,10)
 for a in f:
     print(a)
-
-
-
-            
-       
-
-
-
-
-
-
-            
-
-
-
-
