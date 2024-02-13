@@ -3,8 +3,6 @@ import { React, useState } from 'react';
 import { Search } from 'lucide-react';
 import { Checkbox } from '../ui/checkbox';
 import { Rating } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 
 const Searchbar = () => {
 	const [rating, setRating] = useState(1);
@@ -20,7 +18,7 @@ const Searchbar = () => {
 	};
 
 	return (
-		<form className="w-1/2 absolute top-16 flex flex-col">
+		<form className="w-1/2 absolute top-20 flex flex-col">
 			<div>
 				<label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
 					Search
@@ -46,20 +44,17 @@ const Searchbar = () => {
 			</div>
 			<div className="flex flex-row justify-between mt-6">
 				<div>
-					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
+					<select
 						value={sentiment}
-						label="Age"
 						onChange={handleSentiment}
-						className="text-black dark:text-white border border-white"
+						className="rounded p-2 bg-slate-300 dark:bg-slate-600 hover:dark:bg-slate-500 text-black dark:text-white"
 					>
-						<MenuItem value={'VeryPositive'}>Very Positive</MenuItem>
-						<MenuItem value={'Positive'}>Positive</MenuItem>
-						<MenuItem value={'Neutral'}>Neutral</MenuItem>
-						<MenuItem value={'Negative'}>Negative</MenuItem>
-						<MenuItem value={'VeryNegative'}>Very Negative</MenuItem>
-					</Select>
+						<option value={'VeryPositive'}>Very Positive</option>
+						<option value={'Positive'}>Positive</option>
+						<option value={'Neutral'}>Neutral</option>
+						<option value={'Negative'}>Negative</option>
+						<option value={'VeryNegative'}>Very Negative</option>
+					</select>
 				</div>
 				<div className="flex flex-col items-center">
 					<label>Ratings</label>
