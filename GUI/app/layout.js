@@ -1,6 +1,5 @@
 import './globals.css';
 import { ThemeProvider } from '@/components/ToggleDarkLight/ThemeProvider';
-import Navbar from '@/components/Navbar/Navbar';
 
 export const metadata = {
 	title: 'The Spoon',
@@ -17,7 +16,6 @@ export default function RootLayout({ children }) {
 					enableSystem
 					disableTransitionOnChange
 				>
-					<Navbar />
 					<main>{children}</main>
 				</ThemeProvider>
 			</body>

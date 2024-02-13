@@ -1,25 +1,22 @@
 'use client';
 import { React, useState } from 'react';
-import { Search, ChevronDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Search } from 'lucide-react';
 import { Checkbox } from '../ui/checkbox';
-import {
-	DropdownMenu,
-	DropdownMenuCheckboxItem,
-	DropdownMenuContent,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Rating } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 
 const Searchbar = () => {
 	const [rating, setRating] = useState(1);
 	const [checked, setChecked] = useState(false);
-	const [showStatusBar, setShowStatusBar] = useState(true);
-	const [showActivityBar, setShowActivityBar] = useState(false);
-	const [showPanel, setShowPanel] = useState(false);
+	const [sentiment, setSentiment] = useState('Positive');
 
-	const handleChange = (event) => {
+	const handleAutoexp = (event) => {
 		setChecked(event);
+	};
+
+	const handleSentiment = (event) => {
+		setSentiment(event.target.value);
 	};
 
 	return (
@@ -49,36 +46,20 @@ const Searchbar = () => {
 			</div>
 			<div className="flex flex-row justify-between mt-6">
 				<div>
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button variant="default">
-								<div className="flex flex-row items-center">
-									<div className="mr-2">Sentiments</div>
-									<ChevronDown />
-								</div>
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent className="w-56">
-							<DropdownMenuCheckboxItem
-								checked={showStatusBar}
-								onCheckedChange={setShowStatusBar}
-							>
-								Status Bar
-							</DropdownMenuCheckboxItem>
-							<DropdownMenuCheckboxItem
-								checked={showActivityBar}
-								onCheckedChange={setShowActivityBar}
-							>
-								Activity Bar
-							</DropdownMenuCheckboxItem>
-							<DropdownMenuCheckboxItem
-								checked={showPanel}
-								onCheckedChange={setShowPanel}
-							>
-								Panel
-							</DropdownMenuCheckboxItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
+					<Select
+						labelId="demo-simple-select-label"
+						id="demo-simple-select"
+						value={sentiment}
+						label="Age"
+						onChange={handleSentiment}
+						className="text-black dark:text-white border border-white"
+					>
+						<MenuItem value={'VeryPositive'}>Very Positive</MenuItem>
+						<MenuItem value={'Positive'}>Positive</MenuItem>
+						<MenuItem value={'Neutral'}>Neutral</MenuItem>
+						<MenuItem value={'Negative'}>Negative</MenuItem>
+						<MenuItem value={'VeryNegative'}>Very Negative</MenuItem>
+					</Select>
 				</div>
 				<div className="flex flex-col items-center">
 					<label>Ratings</label>
@@ -94,7 +75,7 @@ const Searchbar = () => {
 					<Checkbox
 						id="autoexp"
 						checked={checked}
-						onCheckedChange={handleChange}
+						onCheckedChange={handleAutoexp}
 					/>
 					<label>Auto Expantion</label>
 				</div>
