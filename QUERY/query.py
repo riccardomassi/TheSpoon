@@ -4,7 +4,8 @@ from whoosh.fields import *
 from whoosh.index import open_dir, exists_in, Index, FileIndex
 from whoosh.qparser import MultifieldParser
 from whoosh.scoring import WeightingModel
-from whoosh.query import NumericRange,DateRange, And, Or
+from whoosh.query import NumericRange, And, Or
+from whoosh.sorting import FieldFacet,ScoreFacet
 import nltk
 from nltk.corpus import wordnet, stopwords
 
@@ -25,7 +26,7 @@ def checkForTextCorrection(text: str) -> str:
     return 0
 
 
-def querySearch(index: FileIndex, text: str, minStarRating: float, correctedQuery: str, useQueryExpansion: bool, sentimentTags: sentimentClassifier, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
+def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str, correctedQuery: str, useQueryExpansion: bool, sentimentTags: sentimentClassifier, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
 
     if not useDefaultRanking:
         ranking = scoring.TF_IDF
@@ -36,6 +37,11 @@ def querySearch(index: FileIndex, text: str, minStarRating: float, correctedQuer
         typeGrouping = qparser.AndGroup
     else:
         typeGrouping = qparser.OrGroup
+
+    if (sortTags == None) or (sortTags not in list(index.schema._fields)):
+        facet = ScoreFacet()
+    else:
+        facet = FieldFacet(sortTags, reverse=True)
 
     with index.searcher(weighting=ranking) as searcher:
             parser = MultifieldParser(["restaurantName","restaurantCategories","reviewText","restaurantAddress"],schema=index.schema,group = typeGrouping)
@@ -66,7 +72,7 @@ def querySearch(index: FileIndex, text: str, minStarRating: float, correctedQuer
             
             finalFilterList = And([filter for filter in filterList])
             finalQueryList = Or([query for query in queryList])
-            results = searcher.search(finalQueryList,filter=finalFilterList,limit=resultLimit)
+            results = searcher.search(finalQueryList,filter=finalFilterList,limit=resultLimit,sortedby=facet)
             formatted_results=[]
             for result in results:
                 if sentimentTags != None and ((sentimentTags == sentimentClassifier.POS) or (sentimentTags == sentimentClassifier.NEG) and (numToLabel(float(result.get('sentiment',''))) == sentimentTags)):
@@ -91,7 +97,10 @@ def querySearch(index: FileIndex, text: str, minStarRating: float, correctedQuer
                 
 
 
-            
+index = open_dir("./GENERATED_INDEX")
+f = querySearch(index,"japanese restaurant",3.0,None,None,True,sentimentClassifier.POS,True,False,10)
+for a in f:
+    print(a)
 
 
 

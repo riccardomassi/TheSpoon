@@ -49,7 +49,6 @@ def indexDataset(analyzer):
         restaurantCategories = TEXT(stored=True,analyzer=analyzer,field_boost=1.5),
         sentiment = NUMERIC(float,stored=True),
     )
-
     index = create_in(outputPath,schema)
     writer = index.writer()
 
