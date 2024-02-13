@@ -7,7 +7,12 @@ def parseSentiment(content,classifier):
     
     sentiment = classifier(content)
 
-    return sentiment[0].get('label')
+    if sentiment[0].get('label') == 'neutral':
+        return 0
+    elif sentiment[0].get('label') == 'positive':
+        return sentiment[0].get('score')
+    else:
+        return -sentiment[0].get('score')
 #Generates a classifier
     
 def generateClassifier():

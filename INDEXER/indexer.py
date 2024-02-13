@@ -19,9 +19,9 @@ def loadDataset(datasetPath):
 
 def indexDataset(analyzer):
 
-    reviewDatapath = "../DATASET/datasetReviews.json"
-    restaurantDatapath = "../DATASET/datasetRestaurants.json"
-    outputPath = "../GENERATED_INDEX"
+    reviewDatapath = "./DATASET/datasetReviews.json"
+    restaurantDatapath = "./DATASET/datasetRestaurants.json"
+    outputPath = "./GENERATED_INDEX"
 
 
     #Checks if the output directory exists, if not attempts to create it
@@ -40,14 +40,14 @@ def indexDataset(analyzer):
 
     schema = Schema(
         restaurantID = TEXT(stored=True),
-        resturantName = TEXT(stored=True,analyzer=analyzer),
-        restaurantAddress = TEXT(stored = True, analyzer = analyzer),
+        resturantName = TEXT(stored=True,analyzer=analyzer,field_boost=2.0),
+        restaurantAddress = TEXT(stored = True, analyzer = analyzer,field_boost=1.5),
         reviewText = TEXT(stored=True, analyzer=analyzer),
         reviewStars = NUMERIC(float, stored = True),
         reviewTime = DATETIME(stored=True),
         restaurantStars = NUMERIC(float, stored=True),
-        restaurantsCategories = TEXT(stored=True,analyzer=analyzer)
-        sentiment = TEXT(stored=True) 
+        restaurantCategories = TEXT(stored=True,analyzer=analyzer,field_boost=1.75),
+        sentiment = NUMERIC(float,stored=True),
     )
 
     index = create_in(outputPath,schema)
@@ -66,7 +66,7 @@ def indexDataset(analyzer):
                     "restaurantAddress": str(restaurant.get('address') + " " + restaurant.get('city') + " " + restaurant.get('state')),
                     "reviewText": str(review.get('text')),
                     "reviewStars": float(review.get('stars')),
-                    "reviewTime": datetime.datetime.strptime(review.get('date',"%Y-%m-%d %H:%H:%S")),
+                    "reviewTime": datetime.datetime.strptime(review.get('date'),"%Y-%m-%d %H:%M:%S"),
                     "restaurantStars": float(restaurant.get('stars')),
                     "restaurantCategories": str(review.get('categories')),
                     "sentiment": sentiment,
