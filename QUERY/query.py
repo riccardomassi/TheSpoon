@@ -2,7 +2,8 @@ from enum import Enum
 from whoosh import qparser, scoring
 from whoosh.fields import *
 import re
-from whoosh.index import FileIndex
+import flask
+from whoosh.index import FileIndex, open_dir
 from whoosh.qparser import MultifieldParser, QueryParser
 from whoosh.query import NumericRange, And, Or
 from whoosh.sorting import FieldFacet,ScoreFacet
@@ -43,9 +44,10 @@ class Emotions(Enum):
 def checkForTextCorrection(text: str) -> str:
     return 0
 
+@app.route('/api/makeQuery')
+def querySearch(text: str, minStarRating: float,sortTags: str, correctedQuery: str, useQueryExpansion: bool, sentimentTags: str, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
 
-def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str, correctedQuery: str, useQueryExpansion: bool, sentimentTags: str, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
-
+    index = open_dir("./GENERATED_INDEX/")
     #Selecting Scoring Model
     if not useDefaultRanking:
         ranking = scoring.TF_IDF
@@ -108,6 +110,7 @@ def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str,
 
                 formatted_result = {
                     'restaurantID': result.get('restaurantID', ''),
+                    'reviewID': result.get('reviewID', ''),
                     'resturantName': result.get('resturantName', ''),
                     'restaurantAddress': result.get('restaurantAddress', ''),
                     'reviewText': result.get('reviewText', ''),
@@ -121,3 +124,9 @@ def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str,
                 formatted_results.append(formatted_result)
             
             return formatted_results
+
+
+doc = querySearch("takeaway pizza",None,None,None,True,"",True,False,10)
+
+for d in doc:
+    print(d)

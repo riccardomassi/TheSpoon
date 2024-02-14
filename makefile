@@ -18,7 +18,7 @@ install_requirements:
 
 benchmark:
 	@echo "Running benchmarks..."
-	@python ./BENCHMARK/runBenchmarks.py
+	@python ./BENCHMARK/benchmark.py
 	@echo "Benchmarks complete."
 
 delete_benchmark:
