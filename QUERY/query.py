@@ -122,9 +122,3 @@ def querySearch(text: str, minStarRating: float,sortTags: str, useQueryExpansion
                 formatted_results.append(formatted_result)
             
             return formatted_results
-
-
-doc = querySearch("takeaway pizza",None,None,None,True,"",True,False,10)
-
-for d in doc:
-    print(d)
