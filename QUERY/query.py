@@ -49,8 +49,6 @@ def prettyPrintResult(result):
     print(result["reviewText"])
     print("Review stars: " + result["reviewStars"] + " Review date: " + result["reviewTime"])
 
-def checkForTextCorrection(text: str) -> str:
-    return 0
 
 def querySearch(text: str, minStarRating: float,sortTags: str, useQueryExpansion: bool, sentimentTags: str, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
 
@@ -128,7 +126,7 @@ def querySearch(text: str, minStarRating: float,sortTags: str, useQueryExpansion
                     'restaurantStars': result.get('restaurantStars', ''),
                     'restaurantCategories': result.get('restaurantCategories', ''),
                     'sentiment': result.get('sentiment', ''),
-                    'score': result.score()
+                    'score': result.score
                 }
 
                 formatted_results.append(formatted_result)
