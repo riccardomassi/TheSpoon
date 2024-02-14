@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from QUERY.query import querySearch
 
 
 app = Flask(__name__)
@@ -17,16 +18,14 @@ def callOnQuerySearch():
             print("Received data:", request_data)
 
             # Your logic here using the received data
-
-            return jsonify({"status": "success", "message": "Data received successfully"})
+            results = querySearch(request_data['searchValue'],float(request_data['rating']),request_data['sorting'],request_data['checked'],request_data['sentiment'],True,False,30)
+            return jsonify(results)
         except Exception as e:
             print("Error parsing JSON data:", str(e))
             return jsonify({"status": "error", "message": "Error parsing JSON data"})
     else:
         return jsonify({"status": "error", "message": "Only POST requests are supported"})
     
-    #documents = querySearch(text, minStarRating,sortTags, correctedQuery, useQueryExpansion, sentimentTags, useDefaultRanking, useOrGroup, resultLimit)
-    #return documents
 
 
 if __name__=="__main__":

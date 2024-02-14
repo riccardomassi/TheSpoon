@@ -1,4 +1,4 @@
-.PHONY: index delete_index install_requirements
+.PHONY: index delete_index install_requirements benchmark delete_benchmark start
 
 index:
 	@echo "Running index.py..."
@@ -22,3 +22,8 @@ benchmark:
 	@echo "Benchmarks complete."
 
 delete_benchmark:
+
+start:
+	@echo "Starting TheSpoon..."
+	@python ./__main__.py
+	@echo "TheSpoon stopped."
