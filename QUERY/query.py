@@ -2,10 +2,11 @@ from enum import Enum
 from whoosh import qparser, scoring
 from whoosh.fields import *
 import re
-from whoosh.index import FileIndex, open_dir
+from whoosh.index import FileIndex, open_dir, exists_in
 from whoosh.qparser import MultifieldParser, QueryParser
 from whoosh.query import NumericRange, And, Or
 from whoosh.sorting import FieldFacet,ScoreFacet
+from whoosh.searching import Searcher
 import nltk
 from nltk.corpus import wordnet, stopwords
 
@@ -40,12 +41,23 @@ class Emotions(Enum):
     NEUTRAL = 'neutral'
 
 
+def prettyPrintResult(result):
+    print("Restaurant name: "+result["restaurantName"])
+    print("Restaurant address: "+result["restaurantAddress"])
+    print("restaurant stars: "+ result["restaurantStars"])
+    print("-"*20)
+    print(result["reviewText"])
+    print("Review stars: " + result["reviewStars"] + " Review date: " + result["reviewTime"])
+
 def checkForTextCorrection(text: str) -> str:
     return 0
 
 def querySearch(text: str, minStarRating: float,sortTags: str, useQueryExpansion: bool, sentimentTags: str, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
 
-    index = open_dir("./GENERATED_INDEX/")
+    if exists_in("./GENERATED_INDEX/"):
+        index = open_dir("./GENERATED_INDEX/")
+    else:
+        return ("Error while opening GENERATED_INDEX folder")
     #Selecting Scoring Model
     if not useDefaultRanking:
         ranking = scoring.TF_IDF
@@ -67,7 +79,6 @@ def querySearch(text: str, minStarRating: float,sortTags: str, useQueryExpansion
     with index.searcher(weighting=ranking) as searcher:
             parser = MultifieldParser(["restaurantName","restaurantCategories","reviewText","restaurantAddress"],schema=index.schema,group = typeGrouping)
             query= parser.parse(text)
-
             queryList = [query]
             filterList = []
 
@@ -76,7 +87,7 @@ def querySearch(text: str, minStarRating: float,sortTags: str, useQueryExpansion
                 ratingQuery = NumericRange("restaurantStars",minStarRating,None)
                 filterList.append(ratingQuery)
             
-            #generates ecpanded query
+            #generates expanded query
             if useQueryExpansion:
                 queryTokens = nltk.word_tokenize(text)
                 synonyms = []

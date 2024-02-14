@@ -10,6 +10,8 @@ TheSpoon utilizes Sentiment Analysis and Information Retrieval techniques to all
 ## Requirements
 Requirements are listed in the `/REQUIREMENTS/requirements.txt` file and can be installed by running `make install_requirements`
 
+To run TheSpoon Internet access is required, both to download the Sentiment Analysis module and to access the Vercel JavaScript front-end.
+
 ## Indexing
 In the `DATASET` folder there is already a (relatively speaking) small selection of Yelp restaurant reviews retrieved from [Kaggle](https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset).
 
