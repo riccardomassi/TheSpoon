@@ -13,7 +13,7 @@ Requirements are listed in the `/REQUIREMENTS/requirements.txt` file and can be 
 ## Indexing
 In the `DATASET` folder there is already a (relatively speaking) small selection of Yelp restaurant reviews retrieved from [Kaggle](https://www.kaggle.com/datasets/yelp-dataset/yelp-dataset).
 
-For the sake of ease of sharing (the original dataset was around 6 GB) and because Kaggle needs a user key to retrieve data from their API, the data has been already downloaded and cut down.
+For the sake of ease of sharing (the original dataset was around 6 GB) and because Kaggle needs a user key to retrieve data from their API, the data has been already downloaded and trimmed.
 
 By running `make index` or `python ./INDEXER/indexer.py` those reviews will be indexed and analyzed by using [Sam Lowe's model](https://huggingface.co/SamLowe/roberta-base-go_emotions).
 
