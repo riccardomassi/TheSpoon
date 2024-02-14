@@ -27,5 +27,5 @@ delete_benchmark:
 	@echo "Deletion complete."
 start:
 	@echo "Starting TheSpoon..."
-	@python ./__main__.py 1 > /dev/null 2> /dev/null
+	@python ./__main__.py
 	@echo "TheSpoon stopped."

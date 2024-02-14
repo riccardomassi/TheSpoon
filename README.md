@@ -22,7 +22,7 @@ By running `make index` or `python ./INDEXER/indexer.py` those reviews will be i
 The index can be deleted, alongside the model's cache, by running `make delete_index`.
 
 ## Benchmarking
-To start benchmarking run `make benchmark` or `python ./BENCHMARK/benckmark.py`. The results will be saved to `./GENERATED_RESULTS/`
+To start benchmarking run `make benchmark` or `python ./runBenchmark.py`. The results will be saved to `./GENERATED_BENCHMARK/`
 
 The benchmarking data can be deleted by running `make delete benchmark`.
 

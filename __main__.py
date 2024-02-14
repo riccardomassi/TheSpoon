@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from QUERY.query import querySearch
+import os
 
 
 app = Flask(__name__)
@@ -26,5 +27,8 @@ def callOnQuerySearch():
 
 
 if __name__=="__main__":
+    if not os.path.exists("./GENERATED_INDEX"):
+        print("No index generated, please run make index.")
+        quit()
     app.run(port=5000)
         
