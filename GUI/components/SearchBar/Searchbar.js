@@ -118,7 +118,9 @@ const Searchbar = ({ onSearchResults, onSearchError }) => {
 						name="simple-controlled"
 						value={rating}
 						onChange={(event, newRating) => {
-							setRating(newRating);
+							// Ensure the minimum rating is 1
+							const clampedRating = Math.max(1, newRating);
+							setRating(clampedRating);
 						}}
 					/>
 				</div>
