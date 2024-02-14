@@ -4,7 +4,7 @@ import Searchbar from '../SearchBar/Searchbar';
 import Results from '../Results/Results';
 
 const SearchEngine = () => {
-	const [results, setResults] = useState('');
+	const [results, setResults] = useState([]);
 
 	const handleSearchResults = (apiResults) => {
 		setResults(apiResults);

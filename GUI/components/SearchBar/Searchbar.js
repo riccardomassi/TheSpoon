@@ -48,8 +48,8 @@ const Searchbar = ({ onSearchResults }) => {
 			});
 
 			const apiResults = await response.json();
-			console.log(apiResults);
-			onSearchResults(JSON.stringify(apiResults.message));
+			console.log(apiResults.results);
+			onSearchResults(apiResults.results);
 		} catch (error) {
 			console.error('Errore durante la chiamata API:', error);
 		}
