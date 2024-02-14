@@ -1,31 +1,50 @@
 from enum import Enum
 from whoosh import qparser, scoring
 from whoosh.fields import *
+import re
 from whoosh.index import FileIndex
-from whoosh.qparser import MultifieldParser
+from whoosh.qparser import MultifieldParser, QueryParser
 from whoosh.query import NumericRange, And, Or
 from whoosh.sorting import FieldFacet,ScoreFacet
 import nltk
 from nltk.corpus import wordnet, stopwords
 
-class sentimentClassifier(Enum):
-    NEG = 1,
-    NEU = 2,
-    POS = 3
+class Emotions(Enum):
+    ADMIRATION = 'admiration'
+    AMUSEMENT = 'amusement'
+    ANGER = 'anger'
+    ANNOYANCE = 'annoyance'
+    APPROVAL = 'approval'
+    CARING = 'caring'
+    CONFUSION = 'confusion'
+    CURIOSITY = 'curiosity'
+    DESIRE = 'desire'
+    DISAPPOINTMENT = 'disappointment'
+    DISAPPROVAL = 'disapproval'
+    DISGUST = 'disgust'
+    EMBARRASSMENT = 'embarrassment'
+    EXCITEMENT = 'excitement'
+    FEAR = 'fear'
+    GRATITUDE = 'gratitude'
+    GRIEF = 'grief'
+    JOY = 'joy'
+    LOVE = 'love'
+    NERVOUSNESS = 'nervousness'
+    OPTIMISM = 'optimism'
+    PRIDE = 'pride'
+    REALIZATION = 'realization'
+    RELIEF = 'relief'
+    REMORSE = 'remorse'
+    SADNESS = 'sadness'
+    SURPRISE = 'surprise'
+    NEUTRAL = 'neutral'
 
-def numToLabel(sentiment: float):
-    if(sentiment>0):
-        return sentimentClassifier.POS
-    elif(sentiment < 0):
-        return sentimentClassifier.NEG
-    else:
-        return sentimentClassifier.NEU
 
 def checkForTextCorrection(text: str) -> str:
     return 0
 
 
-def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str, useQueryExpansion: bool, sentimentTags: sentimentClassifier, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
+def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str, correctedQuery: str, useQueryExpansion: bool, sentimentTags: str, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
 
     #Selecting Scoring Model
     if not useDefaultRanking:
@@ -69,6 +88,15 @@ def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str,
                             synonyms.append(lemma.name())
                 expandedQuery = parser.parse(" ".join(synonyms[:3]))
                 queryList.append(expandedQuery)
+
+            if sentimentTags != "":
+                emotions = re.split(r'\W+', sentimentTags.lower())
+                matches = [emotion.name.lower() for emotion in Emotions if emotion.name.lower() in emotions]
+                if len(matches)>0:
+                    sentimentFilters = [QueryParser("sentiment",index.schema).parse(word) for word in matches]
+                    sentimentFilter = Or(sentimentFilters)
+                    queryList.append(sentimentFilter)
+
             
             finalFilterList = And([filter for filter in filterList])
             finalQueryList = Or([query for query in queryList])
@@ -77,12 +105,6 @@ def querySearch(index: FileIndex, text: str, minStarRating: float,sortTags: str,
             results = searcher.search(finalQueryList,filter=finalFilterList,limit=resultLimit,sortedby=facet)
             formatted_results=[]
             for result in results:
-
-                #Biases queries based on the sentiment selected
-                if sentimentTags != None and ((sentimentTags == sentimentClassifier.POS) or (sentimentTags == sentimentClassifier.NEG) and (numToLabel(float(result.get('sentiment',''))) == sentimentTags)):
-                    result.score *= abs(1.5*float(result.get('sentiment','')))
-                elif (numToLabel(float(result.get('sentiment',''))) != sentimentClassifier.NEU):
-                    result.score /= abs(1.5*float(result.get('sentiment','')))
 
                 formatted_result = {
                     'restaurantID': result.get('restaurantID', ''),

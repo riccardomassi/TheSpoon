@@ -4,6 +4,7 @@ from datetime import datetime
 from whoosh.index import *
 from whoosh.fields import *
 from whoosh.analysis import LanguageAnalyzer
+from whoosh.fields import KEYWORD
 from sentiment import *
 
 #Loads data form dataset. Both datasets have one entry per line
@@ -39,15 +40,16 @@ def indexDataset(analyzer):
     classifier = generateClassifier()
 
     schema = Schema(
-        restaurantID = TEXT(stored=True),
-        resturantName = TEXT(stored=True,analyzer=analyzer,field_boost=1.75),
+        restaurantID = STORED(),
+        reviewID = STORED(),
+        resturantName = TEXT(stored=True,analyzer=analyzer,field_boost=1.25),
         restaurantAddress = TEXT(stored = True, analyzer = analyzer),
         reviewText = TEXT(stored=True, analyzer=analyzer),
         reviewStars = NUMERIC(float, stored = True),
         reviewTime = DATETIME(stored=True),
         restaurantStars = NUMERIC(float, stored=True),
-        restaurantCategories = TEXT(stored=True,analyzer=analyzer,field_boost=1.5),
-        sentiment = NUMERIC(float,stored=True),
+        restaurantCategories = KEYWORD(stored=True,lowercase=True,field_boost=1.6),
+        sentiment = TEXT(stored=True),
     )
     index = create_in(outputPath,schema)
     writer = index.writer()
@@ -61,6 +63,7 @@ def indexDataset(analyzer):
                 doc = {
 
                     "restaurantID": str(review.get('business_id')),
+                    "reviewID": str(review.get('review_id')),
                     "resturantName": str(restaurant.get('name')),
                     "restaurantAddress": str(restaurant.get('address') + " " + restaurant.get('city') + " " + restaurant.get('state')),
                     "reviewText": str(review.get('text')),
