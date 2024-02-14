@@ -42,12 +42,12 @@ class Emotions(Enum):
 
 
 def prettyPrintResult(result):
-    print("Restaurant name: "+result["restaurantName"])
+    print("Restaurant name: "+result["resturantName"])
     print("Restaurant address: "+result["restaurantAddress"])
-    print("restaurant stars: "+ result["restaurantStars"])
+    print("Restaurant stars: "+ str(result["restaurantStars"]))
     print("-"*20)
     print(result["reviewText"])
-    print("Review stars: " + result["reviewStars"] + " Review date: " + result["reviewTime"])
+    print("Review stars: " + str(result["reviewStars"]) + " Review date: " + str(result["reviewTime"]))
 
 
 def querySearch(text: str, minStarRating: float,sortTags: str, useQueryExpansion: bool, sentimentTags: str, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):

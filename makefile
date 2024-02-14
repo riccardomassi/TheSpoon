@@ -18,11 +18,13 @@ install_requirements:
 
 benchmark:
 	@echo "Running benchmarks..."
-	@python ./BENCHMARK/benchmark.py
+	@python ./runBenchmark.py
 	@echo "Benchmarks complete."
 
 delete_benchmark:
-
+	@echo "Deleting GENERATED_INDEX folder and its contents..."
+	@rm -rf ./GENERATED_BENCHMARK
+	@echo "Deletion complete."
 start:
 	@echo "Starting TheSpoon..."
 	@python ./__main__.py 1 > /dev/null 2> /dev/null

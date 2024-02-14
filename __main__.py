@@ -14,9 +14,6 @@ def callOnQuerySearch():
             # Parse JSON data from the request body
             request_data = request.get_json()
 
-            # Print the received data
-            print("Received data:", request_data)
-
             # Your logic here using the received data
             results = querySearch(request_data['searchValue'],float(request_data['rating']),request_data['sorting'],request_data['checked'],request_data['sentiment'],True,False,30)
             return jsonify({"results": results})
