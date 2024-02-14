@@ -128,6 +128,7 @@ def querySearch(text: str, minStarRating: float,sortTags: str, useQueryExpansion
                     'restaurantStars': result.get('restaurantStars', ''),
                     'restaurantCategories': result.get('restaurantCategories', ''),
                     'sentiment': result.get('sentiment', ''),
+                    'score': result.score()
                 }
 
                 formatted_results.append(formatted_result)
