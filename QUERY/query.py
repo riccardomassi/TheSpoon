@@ -45,7 +45,7 @@ def checkForTextCorrection(text: str) -> str:
     return 0
 
 @app.route('/api/makeQuery')
-def querySearch(text: str, minStarRating: float,sortTags: str, correctedQuery: str, useQueryExpansion: bool, sentimentTags: str, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
+def querySearch(text: str, minStarRating: float,sortTags: str, useQueryExpansion: bool, sentimentTags: str, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
 
     index = open_dir("./GENERATED_INDEX/")
     #Selecting Scoring Model
