@@ -4,7 +4,7 @@ import { Search } from 'lucide-react';
 import { Checkbox } from '../ui/checkbox';
 import { Rating } from '@mui/material';
 
-const Searchbar = ({ onSearchResults }) => {
+const Searchbar = ({ onSearchResults, onSearchError }) => {
 	const [rating, setRating] = useState(1);
 	const [checked, setChecked] = useState(false);
 	const [sentiment, setSentiment] = useState('');
@@ -48,13 +48,15 @@ const Searchbar = ({ onSearchResults }) => {
 			});
 
 			const apiResults = await response.json();
-			console.log(apiResults.results);
+			if (apiResults.results.length === 0) {
+				onSearchError(true);
+			} else {
+				onSearchError(false);
+			}
 			onSearchResults(apiResults.results);
 		} catch (error) {
 			console.error('Errore durante la chiamata API:', error);
 		}
-		setSearchValue('');
-		setSentiment('');
 	};
 
 	return (
@@ -126,7 +128,7 @@ const Searchbar = ({ onSearchResults }) => {
 						checked={checked}
 						onCheckedChange={handleAutoexp}
 					/>
-					<label>Auto Expantion</label>
+					<label>Auto Expansion</label>
 				</div>
 			</div>
 		</div>
