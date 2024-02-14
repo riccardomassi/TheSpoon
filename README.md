@@ -27,7 +27,7 @@ To start benchmarking run `make benchmark` or `python ./runBenchmark.py`. The re
 The benchmarking data can be deleted by running `make delete benchmark`.
 
 ## Starting up
-To start up TheSpoon it is sufficient to run `make run`, then head to our [Vercel deployment](https://thespoon.vercel.app).
+To start up TheSpoon it is sufficient to run `make start`, then head to our [Vercel deployment](https://thespoon.vercel.app).
 
 ## Authors
  University of Modena and Reggio Emilia undergraduates in Computer Science [@riccardomassi](https://github.com/riccardomassi/) and [@filipczuba](https://github.com/filipczuba/).
