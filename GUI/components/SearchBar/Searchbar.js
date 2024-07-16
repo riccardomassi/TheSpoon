@@ -39,7 +39,7 @@ const Searchbar = ({ onSearchResults, onSearchError }) => {
 			};
 
 			// Effettua la chiamata API per eseguire la query e avere la risposta
-			const response = await fetch('http://localhost:5000/api/search', {
+			const response = await fetch('http://localhost:5050/api/search', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',

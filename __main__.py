@@ -5,7 +5,7 @@ import os
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["http://localhost:3000/", "https://thespoon.vercel.app"])
 
 
 @app.route('/api/search', methods=['GET', 'POST'])
@@ -30,5 +30,5 @@ if __name__=="__main__":
     if not os.path.exists("./GENERATED_INDEX"):
         print("No index generated, please run make index.")
         quit()
-    app.run(port=5000)
+    app.run(port=5050)
         
