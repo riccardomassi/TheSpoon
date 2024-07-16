@@ -3,8 +3,10 @@ import { React, useState } from 'react';
 import { Search } from 'lucide-react';
 import { Checkbox } from '../ui/checkbox';
 import { Rating } from '@mui/material';
+import { useTheme } from 'next-themes';
 
 const Searchbar = ({ onSearchResults, onSearchError }) => {
+	const { theme } = useTheme();
 	const [rating, setRating] = useState(1);
 	const [checked, setChecked] = useState(false);
 	const [sentiment, setSentiment] = useState('');

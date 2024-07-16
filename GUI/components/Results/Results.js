@@ -1,7 +1,10 @@
-import { React, useState, useEffect } from 'react';
-import { ScrollArea } from '../ui/scroll-area';
+import React, { useState, useRef, useEffect } from 'react';
 
 const Results = ({ results, error }) => {
+	const [currentPage, setCurrentPage] = useState(1);
+	const itemsPerPage = 10;
+	const scrollRef = useRef(null);
+
 	// Function to format the reviewTime
 	const formatReviewTime = (rawTime) => {
 		const date = new Date(rawTime);
@@ -16,34 +19,70 @@ const Results = ({ results, error }) => {
 		return formattedTime;
 	};
 
+	// Calculate the index range for the current page
+	const indexOfLastItem = currentPage * itemsPerPage;
+	const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+	const currentItems = results.slice(indexOfFirstItem, indexOfLastItem);
+
+	// Function to handle page changes
+	const handlePageChange = (pageNumber) => {
+		setCurrentPage(pageNumber);
+	};
+
+	// Effetto per eseguire lo scroll al cambiamento di pagina
+	useEffect(() => {
+		scrollRef.current.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		});
+
+	}, [currentPage]);
+
+	// Calculate the total number of pages
+	const totalPages = Math.ceil(results.length / itemsPerPage);
+
 	return (
-		<ScrollArea className="w-[90vw] h-[75vh] absolute top-28 bg-gray-200 dark:bg-gray-700 rounded">
-			{!error &&
-				results.map((restaurant, index) => (
-					<div key={index}>
-						<div className="flex flex-col mb-6">
-							<h1 className="flex text-xl justify-center">RESTAURANT</h1>
-							<div className="flex flex-row justify-center">
-								<p className="mx-5">{restaurant.resturantName}</p>
-								<p className="mx-5">{restaurant.restaurantAddress}</p>
-								<p className="mx-5">{restaurant.restaurantStars} ★</p>
-							</div>
-						</div>
-						<div className="mb-6">
-							<div className="flex flex-col items-center">
-								<h1 className="flex w-full text-xl justify-center">REVIEW</h1>
-								<p className="text-center">{restaurant.reviewText}</p>
-								<div className="flex flex-row justify-between mt-2">
-									<p className="mx-5">
-										{formatReviewTime(restaurant.reviewTime)}
-									</p>
-									<p className="mx-5">{restaurant.reviewStars} ★</p>
+		<div className="absolute top-52 bg-gray-100 dark:bg-gray-800 rounded-lg p-4 shadow-lg">
+			{!error && (
+				<>
+					<div ref={scrollRef} className="h-[63vh] w-[90vw] overflow-y-scroll mb-4">
+						{currentItems.map((restaurant, index) => (
+							<div key={index} className="bg-white dark:bg-gray-900 p-6 mb-6 rounded-lg shadow-md">
+								<div className="mb-4">
+									<h1 className="text-2xl font-bold text-center text-gray-800 dark:text-gray-200">RESTAURANT</h1>
+									<div className="text-center">
+										<p className="text-lg font-semibold text-gray-700 dark:text-gray-300">{restaurant.resturantName}</p>
+										<p className="text-gray-600 dark:text-gray-400">{restaurant.restaurantAddress}</p>
+										<p className="text-yellow-500">{restaurant.restaurantStars} ★</p>
+									</div>
+								</div>
+								<div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+									<h2 className="text-xl font-bold text-center text-gray-800 dark:text-gray-200">REVIEW</h2>
+									<p className="text-gray-700 dark:text-gray-300 my-2">{restaurant.reviewText}</p>
+									<div className="flex justify-between items-center mt-4">
+										<p className="text-gray-600 dark:text-gray-400">{formatReviewTime(restaurant.reviewTime)}</p>
+										<p className="text-yellow-500">{restaurant.reviewStars} ★</p>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div className="border-t border-gray-800 dark:border-gray-300 my-4"></div>
+						))}
 					</div>
-				))}
+					<div className="flex justify-center mt-2">
+						{Array.from({ length: totalPages }, (_, index) => (
+							<button
+								key={index}
+								onClick={() => handlePageChange(index + 1)}
+								className={`px-4 py-2 mx-1 rounded-lg ${currentPage === index + 1
+									? 'bg-blue-500 text-white'
+									: 'bg-gray-300 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
+									}`}
+							>
+								{index + 1}
+							</button>
+						))}
+					</div>
+				</>
+			)}
 			{error && (
 				<div className="flex justify-center">
 					<div className="bg-yellow-300 py-20 w-1/2 rounded text-4xl text-black mt-48 flex flex-col items-center">
@@ -52,7 +91,7 @@ const Results = ({ results, error }) => {
 					</div>
 				</div>
 			)}
-		</ScrollArea>
+		</div>
 	);
 };
 
