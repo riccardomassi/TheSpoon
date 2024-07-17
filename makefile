@@ -33,7 +33,6 @@ start_venv:
 install_nltk_data: install_requirements
 	@echo "Installing NLTK corpus and stopwords..."
 	@./ENV/bin/python -m nltk.downloader punkt stopwords wordnet
-	@./ENV/bin/python -m spacy download en_core_web_md
 	@echo "NLTK corpus and stopwords installation complete."
 
 start: start_venv install_requirements install_nltk_data
