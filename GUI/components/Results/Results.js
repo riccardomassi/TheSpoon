@@ -42,7 +42,7 @@ const Results = ({ results, error }) => {
 	const totalPages = Math.ceil(results.length / itemsPerPage);
 
 	return (
-		<div className="absolute top-52 bg-gray-100 dark:bg-gray-800 rounded-lg p-4 shadow-lg">
+		<div className={`absolute ${error ? "top-72" : "top-52"} bg-gray-100 dark:bg-gray-800 rounded-lg p-4 shadow-lg`}>
 			{!error && (
 				<>
 					<div ref={scrollRef} className="h-[63vh] w-[90vw] overflow-y-scroll mb-4">
@@ -85,7 +85,7 @@ const Results = ({ results, error }) => {
 			)}
 			{error && (
 				<div className="flex justify-center">
-					<div className="bg-yellow-300 py-20 w-1/2 rounded text-4xl text-black mt-48 flex flex-col items-center">
+					<div className="bg-yellow-300 p-10 rounded text-4xl text-black flex flex-col items-center">
 						<p className="mb-4">No match found!</p>
 						<p>Try enabling Auto Expansion?</p>
 					</div>

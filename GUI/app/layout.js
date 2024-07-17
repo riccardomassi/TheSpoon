@@ -12,7 +12,7 @@ export default function RootLayout({ children }) {
 			<body className="flex fixed flex-row h-full w-full">
 				<ThemeProvider
 					attribute="class"
-					defaultTheme="system"
+					defaultTheme="dark"
 					enableSystem
 					disableTransitionOnChange
 				>

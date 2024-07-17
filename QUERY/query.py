@@ -64,10 +64,8 @@ def spell_check_phrase(phrase):
         if not wordnet.synsets(word):  # Check if word is in WordNet (i.e., it's a valid word)
             # Find similar words within 1 edit distance
             similar_words = [w for w in wordnet.words() if nltk.edit_distance(word, w) <= 1]
-            print(similar_words)
-            if similar_words:
-                
-                corrected_words.append(similar_words[0])
+            if similar_words:          
+                corrected_words = similar_words[:3] # Keep the first 3 similar words
             else:
                 corrected_words.append(word)  # If no similar words found, keep original
         else:
@@ -160,6 +158,10 @@ def runQuerySearch(index, text, minStarRating, sortTags, useQueryExpansion, sent
         facet = selectFieldSorting(index, sortTags)
         results = searcher.search(finalQueryList, filter=finalFilterList, limit=resultLimit, sortedby=facet)
 
+        new_phrase = ''
+        if not results:
+            new_phrase = spell_check_phrase(text)
+
         formatted_results = []
         for result in results:
             formatted_result = {
@@ -173,11 +175,11 @@ def runQuerySearch(index, text, minStarRating, sortTags, useQueryExpansion, sent
                 'restaurantStars': result.get('restaurantStars', ''),
                 'restaurantCategories': result.get('restaurantCategories', ''),
                 'sentiment': result.get('sentiment', ''),
-                'score': result.score
+                'score': result.score,
             }
             formatted_results.append(formatted_result)
-
-        return formatted_results
+        
+        return formatted_results, new_phrase
 
 
 def querySearch(text: str, minStarRating: float, sortTags: str, useQueryExpansion: bool, sentimentTags: str, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):

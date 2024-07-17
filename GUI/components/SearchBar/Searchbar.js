@@ -2,16 +2,16 @@
 import { React, useState } from 'react';
 import { Search } from 'lucide-react';
 import { Checkbox } from '../ui/checkbox';
-import { Rating } from '@mui/material';
-import { useTheme } from 'next-themes';
+import { Rating, CircularProgress } from '@mui/material';
 
 const Searchbar = ({ onSearchResults, onSearchError }) => {
-	const { theme } = useTheme();
 	const [rating, setRating] = useState(1);
 	const [checked, setChecked] = useState(false);
 	const [sentiment, setSentiment] = useState('');
 	const [searchValue, setSearchValue] = useState('');
 	const [sorting, setSorting] = useState('');
+	const [loading, setLoading] = useState(false);
+	const [suggestions, setSuggestions] = useState([]);
 
 	const handleAutoexp = (event) => {
 		setChecked(event);
@@ -29,11 +29,12 @@ const Searchbar = ({ onSearchResults, onSearchError }) => {
 		setSentiment(event.target.value);
 	};
 
-	const apiRequest = async () => {
+	const apiRequest = async (query) => {
+		setLoading(true);
 		try {
 			// Prepare the data to be sent in the request body
 			const requestData = {
-				searchValue,
+				searchValue: query || searchValue,
 				rating,
 				checked,
 				sentiment,
@@ -52,13 +53,23 @@ const Searchbar = ({ onSearchResults, onSearchError }) => {
 			const apiResults = await response.json();
 			if (apiResults.results.length === 0) {
 				onSearchError(true);
+				setSuggestions(apiResults.new_phrase.split(' '));
 			} else {
 				onSearchError(false);
+				setSuggestions([]);
 			}
 			onSearchResults(apiResults.results);
+			setSearchValue(query || searchValue);
 		} catch (error) {
 			console.error('Errore durante la chiamata API:', error);
+		} finally {
+			setLoading(false);
 		}
+	};
+
+	const handleSuggestionClick = (suggestion) => {
+		setSearchValue(suggestion);
+		apiRequest(suggestion);
 	};
 
 	return (
@@ -73,7 +84,7 @@ const Searchbar = ({ onSearchResults, onSearchError }) => {
 							<Search />
 						</div>
 						<input
-							className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
+							className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
 							type="search"
 							id="default-search"
 							placeholder="Search..."
@@ -82,17 +93,34 @@ const Searchbar = ({ onSearchResults, onSearchError }) => {
 							onChange={handleSearchValue}
 						/>
 						<button
-							className="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:outline-non font-medium rounded-lg text-sm px-4 py-2"
-							onClick={apiRequest}
+							className="text-white absolute end-2.5 bottom-2.5 bg-blue-600 hover:bg-blue-700 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 flex items-center justify-center"
+							onClick={() => apiRequest()}
+							disabled={loading}
 						>
-							Search
+							{loading ? <CircularProgress size={24} color="inherit" /> : 'Search'}
 						</button>
 					</div>
+					{suggestions.length > 0 && (
+						<div className='flex flex-row items-center mt-2'>
+							<p>forse stavi cercando: </p>
+							<>
+								{suggestions.map((suggestion, index) => (
+									<span
+										key={index}
+										className="text-blue-600 hover:text-blue-800 cursor-pointer mx-1"
+										onClick={() => handleSuggestionClick(suggestion)}
+									>
+										{suggestion}
+									</span>
+								))}
+							</>
+						</div>
+					)}
 				</div>
 				<div className="w-1/2 mx-10">
 					<div className="relative">
 						<input
-							className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white "
+							className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
 							type="search"
 							id="default-search"
 							placeholder="Sentiment search (joy, anger, ...)"
