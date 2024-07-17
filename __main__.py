@@ -16,7 +16,7 @@ def callOnQuerySearch():
             request_data = request.get_json()
 
             # Your logic here using the received data
-            results = querySearch(request_data['searchValue'],float(request_data['rating']),request_data['sorting'],request_data['checked'],request_data['sentiment'],True,False,30)
+            results = querySearch(request_data['searchValue'],float(request_data['rating']),request_data['sorting'],request_data['checked'],request_data['sentiment'],True,True,30)
             return jsonify({"results": results})
         except Exception as e:
             print("Error parsing JSON data:", str(e))

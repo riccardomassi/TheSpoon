@@ -42,13 +42,13 @@ def indexDataset(analyzer):
     schema = Schema(
         restaurantID = STORED(),
         reviewID = STORED(),
-        resturantName = TEXT(stored=True,analyzer=analyzer,field_boost=1.25),
-        restaurantAddress = TEXT(stored = True, analyzer = analyzer),
+        resturantName = TEXT(stored=True,analyzer=analyzer,field_boost=1.2),
+        restaurantAddress = TEXT(stored = True, analyzer = analyzer,field_boost=1.2),
         reviewText = TEXT(stored=True, analyzer=analyzer),
         reviewStars = NUMERIC(float, stored = True),
         reviewTime = DATETIME(stored=True),
         restaurantStars = NUMERIC(float, stored=True),
-        restaurantCategories = KEYWORD(stored=True,lowercase=True,field_boost=1.6),
+        restaurantCategories = KEYWORD(stored=True,lowercase=True,field_boost=1.5),
         sentiment = TEXT(stored=True),
     )
     index = create_in(outputPath,schema)

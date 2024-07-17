@@ -1,14 +1,17 @@
-from enum import Enum
-from whoosh import qparser, scoring
-from whoosh.fields import *
 import re
-from whoosh.index import FileIndex, open_dir, exists_in
-from whoosh.qparser import MultifieldParser, QueryParser
-from whoosh.query import NumericRange, And, Or
-from whoosh.sorting import FieldFacet,ScoreFacet
-from whoosh.searching import Searcher
 import nltk
+from enum import Enum
 from nltk.corpus import wordnet, stopwords
+from nltk.metrics import edit_distance
+from nltk.tokenize import word_tokenize
+from whoosh import scoring, qparser
+from whoosh.fields import *
+from whoosh.index import open_dir, exists_in
+from whoosh.qparser import MultifieldParser, QueryParser
+from whoosh.query import NumericRange, Or, And
+from whoosh.sorting import FieldFacet, ScoreFacet
+
+
 
 class Emotions(Enum):
     ADMIRATION = 'admiration'
@@ -42,93 +45,146 @@ class Emotions(Enum):
 
 
 def prettyPrintResult(result):
-    print("Restaurant name: "+result["resturantName"])
-    print("Restaurant address: "+result["restaurantAddress"])
-    print("Restaurant stars: "+ str(result["restaurantStars"]))
-    print("-"*20)
+    print("Restaurant name: " + result["resturantName"])
+    print("Restaurant address: " + result["restaurantAddress"])
+    print("Restaurant stars: " + str(result["restaurantStars"]))
+    print("-" * 20)
     print(result["reviewText"])
     print("Review stars: " + str(result["reviewStars"]) + " Review date: " + str(result["reviewTime"]))
+    
+def spell_check_phrase(phrase):
+    # Tokenize the phrase into words
+    words = nltk.word_tokenize(phrase)
+
+    # Initialize an empty list to store corrected words
+    corrected_words = []
+
+    # Check each word in the phrase
+    for word in words:
+        if not wordnet.synsets(word):  # Check if word is in WordNet (i.e., it's a valid word)
+            # Find similar words within 1 edit distance
+            similar_words = [w for w in wordnet.words() if nltk.edit_distance(word, w) <= 1]
+            print(similar_words)
+            if similar_words:
+                
+                corrected_words.append(similar_words[0])
+            else:
+                corrected_words.append(word)  # If no similar words found, keep original
+        else:
+            corrected_words.append(word)  # Keep original if word is valid
+
+    # Join the corrected words back into a single string
+    corrected_phrase = ' '.join(corrected_words)
+
+    return corrected_phrase
 
 
-def querySearch(text: str, minStarRating: float,sortTags: str, useQueryExpansion: bool, sentimentTags: str, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
+def loadIndex(index_dir):
+    # Check if the index exists
+    if not exists_in(index_dir):
+        raise Exception(f"Index folder '{index_dir}' not found")
+    return open_dir(index_dir)
 
-    if exists_in("./GENERATED_INDEX/"):
-        index = open_dir("./GENERATED_INDEX/")
+
+def selectScoringModel(useDefaultRanking):
+    if useDefaultRanking:
+        return scoring.BM25F
     else:
-        return ("Error while opening GENERATED_INDEX folder")
-    #Selecting Scoring Model
-    if not useDefaultRanking:
-        ranking = scoring.TF_IDF
+        return scoring.TF_IDF
+
+
+def selectGroupingType(useOrGroup):
+    if useOrGroup:
+        return qparser.OrGroup
     else:
-        ranking = scoring.BM25F
+        return qparser.AndGroup
 
-    #Selecting Grouping Type
-    if not useOrGroup:
-        typeGrouping = qparser.AndGroup
+
+def selectFieldSorting(index, sortTags):
+    if not sortTags or sortTags not in list(index.schema._fields):
+        return ScoreFacet()
     else:
-        typeGrouping = qparser.OrGroup
+        return FieldFacet(sortTags, reverse=True)
 
-    #Selects field sorting
-    if (sortTags == None) or (sortTags not in list(index.schema._fields)):
-        facet = ScoreFacet()
-    else:
-        facet = FieldFacet(sortTags, reverse=True)
 
-    with index.searcher(weighting=ranking) as searcher:
-            parser = MultifieldParser(["restaurantName","restaurantCategories","reviewText","restaurantAddress"],schema=index.schema,group = typeGrouping)
-            query= parser.parse(text)
-            queryList = [query]
-            filterList = []
+def generateRatingFilter(minStarRating):
+    if minStarRating:
+        return NumericRange("reviewStars", minStarRating, None)
+    return None
 
-            #generates filter for minimum rating 
-            if minStarRating != None:
-                ratingQuery = NumericRange("restaurantStars",minStarRating,None)
-                filterList.append(ratingQuery)
-            
-            #generates expanded query
-            if useQueryExpansion:
-                queryTokens = nltk.word_tokenize(text)
-                synonyms = []
-                stopWords = set(stopwords.words("english"))
-                tokenizedQuery = [word for word in queryTokens if word.lower() not in stopWords]
-                for word in tokenizedQuery:
-                    for syn in wordnet.synsets(word):
-                        for lemma in syn.lemmas():
-                            synonyms.append(lemma.name())
-                expandedQuery = parser.parse(" ".join(synonyms[:3]))
-                queryList.append(expandedQuery)
 
-            if sentimentTags != "":
-                emotions = re.split(r'\W+', sentimentTags.lower())
-                matches = [emotion.name.lower() for emotion in Emotions if emotion.name.lower() in emotions]
-                if len(matches)>0:
-                    sentimentFilters = [QueryParser("sentiment",index.schema).parse(word) for word in matches]
-                    sentimentFilter = Or(sentimentFilters)
-                    queryList.append(sentimentFilter)
+def generateExpandedQuery(text,limit=3):
+        queryTokens = word_tokenize(text)
+        synonyms = []
+        stopWords = set(stopwords.words("english"))
+        tokenizedQuery = [word for word in queryTokens if word.lower() not in stopWords]
+        for word in tokenizedQuery:
+            for syn in wordnet.synsets(word):
+                for lemma in syn.lemmas():
+                    if lemma.name() not in synonyms:
+                        synonyms.append(lemma.name())
+        return " ".join(synonyms[:limit])
 
-            
-            finalFilterList = And([filter for filter in filterList])
-            finalQueryList = Or([query for query in queryList])
 
-            #Running search
-            results = searcher.search(finalQueryList,filter=finalFilterList,limit=resultLimit,sortedby=facet)
-            formatted_results=[]
-            for result in results:
+def generateSentimentFilter(sentimentTags,index):
+    if sentimentTags:
+        emotions = re.split(r'\W+', sentimentTags.lower())
+        matches = [emotion.name.lower() for emotion in Emotions if emotion.name.lower() in emotions]
+        if matches:
+            return Or([QueryParser("sentiment", index.schema).parse(word) for word in matches])
+    return None
 
-                formatted_result = {
-                    'restaurantID': result.get('restaurantID', ''),
-                    'reviewID': result.get('reviewID', ''),
-                    'resturantName': result.get('resturantName', ''),
-                    'restaurantAddress': result.get('restaurantAddress', ''),
-                    'reviewText': result.get('reviewText', ''),
-                    'reviewStars': result.get('reviewStars', ''),
-                    'reviewTime': result.get('reviewTime', ''),
-                    'restaurantStars': result.get('restaurantStars', ''),
-                    'restaurantCategories': result.get('restaurantCategories', ''),
-                    'sentiment': result.get('sentiment', ''),
-                    'score': result.score
-                }
 
-                formatted_results.append(formatted_result)
-            
-            return formatted_results
+def runQuerySearch(index, text, minStarRating, sortTags, useQueryExpansion, sentimentTags, useDefaultRanking, useOrGroup, resultLimit):
+    with index.searcher(weighting=selectScoringModel(useDefaultRanking)) as searcher:
+        parser = MultifieldParser(["restaurantName", "restaurantCategories", "reviewText", "restaurantAddress"],
+                                  schema=index.schema, group=selectGroupingType(useOrGroup))
+        queryList = [parser.parse(text)]
+        filterList = []
+        
+        if minStarRating != None:
+            ratingFilter = generateRatingFilter(minStarRating)
+            filterList.append(ratingFilter)
+        
+        if useQueryExpansion:
+            expandedQuery = generateExpandedQuery(text,5)
+            queryList.append(parser.parse(expandedQuery))
+   
+        if sentimentTags != "":
+            sentimentFilter = generateSentimentFilter(sentimentTags,index)
+            queryList.append(sentimentFilter)
+
+        finalFilterList = And([filter for filter in filterList if filter])
+        finalQueryList = Or([query for query in queryList])
+
+        facet = selectFieldSorting(index, sortTags)
+        results = searcher.search(finalQueryList, filter=finalFilterList, limit=resultLimit, sortedby=facet)
+
+        formatted_results = []
+        for result in results:
+            formatted_result = {
+                'restaurantID': result.get('restaurantID', ''),
+                'reviewID': result.get('reviewID', ''),
+                'resturantName': result.get('resturantName', ''),
+                'restaurantAddress': result.get('restaurantAddress', ''),
+                'reviewText': result.get('reviewText', ''),
+                'reviewStars': result.get('reviewStars', ''),
+                'reviewTime': result.get('reviewTime', ''),
+                'restaurantStars': result.get('restaurantStars', ''),
+                'restaurantCategories': result.get('restaurantCategories', ''),
+                'sentiment': result.get('sentiment', ''),
+                'score': result.score
+            }
+            formatted_results.append(formatted_result)
+
+        return formatted_results
+
+
+def querySearch(text: str, minStarRating: float, sortTags: str, useQueryExpansion: bool, sentimentTags: str, useDefaultRanking: bool, useOrGroup: bool, resultLimit: int):
+
+    index_dir = "./GENERATED_INDEX/"
+    index = loadIndex(index_dir)
+    return runQuerySearch(index, text, minStarRating, sortTags, useQueryExpansion, sentimentTags, useDefaultRanking,
+                              useOrGroup, resultLimit)
+
+
