@@ -18,7 +18,7 @@ install_requirements: start_venv
 
 benchmark:
 	@echo "Running benchmarks..."
-	@./ENV/bin/python ./runBenchmark.py
+	@./ENV/bin/python ./BENCHMARK/benchmark.py
 	@echo "Benchmarks complete."
 
 delete_benchmark:

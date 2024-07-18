@@ -1,6 +1,6 @@
 [
     {
-        "uin": "Find nice Subway restaurants that have more than three stars",
+        "uin": "Find reviews that have more than 3 stars of nice Subway restaurants ",
         "text": "subway",
         "minStars": 3.0,
         "sentiments": ["admiration","joy","neutral"],
@@ -8,11 +8,11 @@
     },
 
     {
-        "uin": "McDonald's Restaurants in Los Angeles",
-        "text": "mcdonalds LA",
-        "minStars": 0.0,
+        "uin": "Find reviews of with more than 3 stars of McDonald's Restaurants",
+        "text": "mcdonalds",
+        "minStars": 3.0,
         "sentiments": [],
-        "relevantID":["purjqMP42AM1ZE2GQI1Ldg","P5XCq9I1hciCBRiW_siVBw","lNJmAk3b-Lh34ILqaF5IpQ","8nFEhK_lixuwiaFXiltC3g","GvbcgQr4UaWi81fk38foKA","d9z4jVX6SYJwXCnFZ_nYUg","9sV0cm2cVvxEdcq4C-1kzw","2LwEMQULc7A_z5TaQbalkA","GFhlXApDfbzw0wdjNmYcAg","Lh4TjWMy_a7ugtVfHOKKNQ","mrAG6dCN2CsiWHga9eWTPg","CO69tsDdLSQFOUiJIyd7Gw","MnvBOW8jmXg1-PyHZn6fSw","aQwJZda0U2KP12Sjg_09Aw","tq3m7gB3EBC9gK3Wno_wtA","lsBOfgLnNf0Z84nKG8z8AA","Rl3wOB7Ed5KO02sLl7LGew"]
+        "relevantID":["S-ZEJESYneALvxIW3udBqg","k1KU_3-QE81Nf9V_skbbyw","AIUfu7NzAI3q_8ovBtBXrw","ju1cKcYOFoLyE-J2vIZVhg","ex6DTmgdeJlJN3YKh7KEEA","CNPKqQdORjJXbbMDDNfZJg","rmtgN1Swc9vFp2CzN8khCA","fY2Ud6ugtBec8lDLxGY9AA","ybQXO3TLrYSMFUHyv8xOAA","f1HkaEmlwjmAh5XIkB0kaA","FyPal3wONwzNw_Q7WpHn3g","IWQft0bdT1IRHD50PtW3Rw","3qmylP19fz0w2LkX4rWy0g","KE62tM0CQ_DD01o-aPXbmA","Ax8R_sig3emVur0MsnjCCw","OHK8cMwCG6yY7lTSb2BXcg","tDIUd1mJ8MucRvdPJ3m8hw","WgQXS7MsYd3apHDWFn-o7g","yBd41f3wbLmGATN7-8tifQ","0Se7MofIdNvK5jpSdwHa2A","cYxjiadcNNwQjO6hU0HqiQ","IN9dDDQuNxXEtXI3T1bo0g","xnVDl0ogjBA6cEolLNmZ0w","YK965t5swhEXWyWyAtC7Jg","MZB0UQHXzGyY_2prQF0GPg","c7Q12O764X-XkWV0wud2tw","qBPyev5qaexIQ1O_av6BeQ","jJMBxXfhtQXN8T63F3fyqw","kJVui28pRGPCeDAxZjw7yg","7l2PI5UBMLoXaRQhz2RsVw","lGrhcGFY1AGqnkuTQJ57xw","Smy86OrCi0SjqKSRsuNPUw","oWx5VpDxplt1qFYPOWK4VA","Qq_S7cISlQ_czGSbpog9qQ","MW4ePhV5KLsxdFgy8EqTjw","zy7v7L7wPnAxf-tCFj7B5w","DGcQ0-uwY8-PQKKMYCJlXQ","iENfkHCvgXLb8TOhQyoslg","dSC5l2ZiPWkDJPZ4wlxbbA","A8cwvIVbfCNLGZTMDt1Xqg","jY7O42ps8iud-SRbquEEcw","03nk4CU0V5_KplbAPIvBAg","Q0d_Oa9DNqEMt9kq_gnkqg","5aCVZVxFPB-Asst7DcDhwQ","IfkMUmRDdwn_gbp8yfbm6Q","EoX8mOlM1m1LS2X1IW0hNg","TShcvqC3r3PXhxKRnDFbSg","5yf_e9MN3Ls0Jc69h8Kgpg","941DNmSoDiQKcA_7Az13Sg","Inoxjcse-IdVXerUC9XKRQ","YC3XkI3csLQA3U967ZoTvg","h0kH5vnMCr6B_w-Ix2VvqA","ZKKpd7ltc4mSH-6V7hizbQ","boKsRbI5AQot7m52bepB2Q","qu8cO8zULEMvu6gWJGkqgQ","P0ndka8ZU-HYyn0dDpxETg","Ql5X7YBgrRiJbCarmYqfrw","--MA5dGZ5hPw4vNWkZ4DcQ","o-G4uQtbI9CZpplX8nRxSQ","H9MvyO8ooclzCKE8QsOnMA","epvBC-HDyKnoIWf-lWfFOA","IA2EV21j7ZwYeIdIO3Rblw","1Qc9vsrrQkwBeNkrvlmIMw","I4ZHHUKS78QsIdf4-UIyHQ","Z3YjzQr7-mcqy5e0YQCFMg","-j3gME2C4jrCzSMC5LEtpg","b2G6Lo1DyZnK1VFg4PuUtg","uCKdZfXnAJxv5Qq6Fo7KNQ","9phIU6pU8T6t7FxxkrUTLg","DdTy4vnrTD9T8lG9hHEnlw"]
    
     },
     {
@@ -33,23 +33,23 @@
      
     },
     {
-        "uin": "Cafes with more than 3 stars in Florida",
-        "text": "cafe FL",
+        "uin": "Find reviews with more than 3 stars of Cafes in Florida",
+        "text": "Cafes FL",
         "minStars": 3.0,
         "sentiments": [],
         "relevantID":["npqEeGYp1OzcyCLUBz_jiA","HBb8seRmnCsu6-WJaO0ePQ","2tqetqig1uVFV927eRwoyw","zIkHQhyyIVtzi9pAwFhvsw","z5SIHUTt0t1AhwyOmY4sow","ObloKdQsy1wU5ZdvHklenQ","bMnPoByi96vhBnwFJHMShA","BgVqOi7o9cunuAcELjOzxw","-njHh_E77p9DCKV1dhrh0Q","D23fqG5SMjSGSYPWmLdZUQ","y_ovadJJUxJmloBRWCRQjg","JuU0SzUqfS2rxtmygzbpXQ","QqtikTmKlNmdfVTcHT3C2Q","hhQijKSwJzgobxszMEZxBQ","6q9DivRHg5afmPCIkrEnUg","gPgmKa529D-P76Y08SI_Jg","v9SubF-CkANS7YuKqvxhgQ","IgYrIqR-zhwPnycyVkEQwQ","zxz86S-wlo1AwM_LgMXX0w","TUKOPknOHwaP2ZsJp44p-Q","Byn3PV2P8LaqApiQ0ElgHg","ubC8-9Ann-4DrAtcCRqXNg","MoEZe5zhC2Sti2gBRMLlSg","iBlvAQpPuIX4bfI1OgAf8Q","S7sKQyIcg_ot-xA3C4NxOQ","Rpnr4rimjr5MSUuPaVGikw","TRajuU37tjKQi4b8hQ_kHA","H2f92uFRBKqTgZyzve0XqQ","v8Jp16gkqQqzNn0MDBx5VQ","4rdqbEgpO588tnHIqTSqzg","9Sm6kjp9qW6dINlz3z7QSw","EaIfL7D4GMj8TWqaaY0HXQ","3PfalXNx51zW-BGAJDmLig","LbOss6y37TSmxwfPMl7muA","QoA2ZAmCJTTzjzQN8bNBfA","xeGmcaMWlfS2hvDBQEBvZg","m_HgajAJNXb8bWkzMhF3wQ","Wwcrz-gc2ak5RrUI7oi5XA","iyLrKiVcCzDznUVsoqye4Q","Gie3nC97LSaaW1N2OcMvIQ","jjanuZw4XT6qWCaP41zbtQ","yHdQvQpZmARMOi8zGcdwyA","c_OxFF5ZidrKdHC-TPszPw","rjePnGtBqqSxmUXrwwTlaQ","qFKytcloqAciaFD9HwazmQ","LpgBw4EbRKc2qT7LwhDlzQ","VkA3nRje6fQgOz-4l1Paiw","DrQl6KkN0CJ3IyPjh16GgQ","po-PAfEzNHX-JNCPxKKAIg","aWGpnnpJXXyByRrheS4dWQ","1zR1thIxrM4AtmZfvNSaaA","1qCNSzdzIKtkcfpE0RvHeA","FGpkpURiTYtE2_4GBQNNdw","w16WC-gcV67n_kWFt_WREQ","-8NjRopObskKmZx4EAIKUA","eI0Wh5qX_TQ49ApfRIb67w","8dUUQKHMew5625tA7dE8gA","ZF4Z330SDxold7sG-AB0Og","2-KXPyCk6C5Oz-08XzLOyA","4S6QTgivgUzTHpfzOJBttA","aCz6aUAKfV_fezAvw9nV_g","HEFGqmrgnGuhPqITY8XXdg","AcUBi6L21cIV1fNV5gP6Xg","jwLlnbJtHfIMNc1p2d4c0A","4oTkubF_FDTBGlFwl6BNFQ","k9qIMC-bi7eOXP1Cf5E8pQ","DWUcx1pTg4zZVHBwiBes_A","dSuRxFxqmshpTWolt1iHWA","airMhqVZ_nl8W4Hk1VQc-Q","GniZnYAYQY0Ie9e7IdgsEQ","8Z1ZbjOfyKUVagCrSS4ZZg","-zCacFLANGPxjKeyWQP19g","ioQXJMjfChZF9qI7m53K4w","OUarDEXuYhYJ7LBDHI2rug","RFsN2Am49_EvPagT_RLx9Q","d6nxJessCyvIAhty-tjugw","mun6cyMvO6OtqgZ7ggQJpw","zCj6UVYUGiwcaqB2-BnDwQ","zWBIuOCEhctOiktpXjNtFg","9GCShoa3GHAr5PZIdBRS8w","j3ZDJxWAX0F1sj0JfCtEnQ","FHSXlKpRIPiNzLBTrSXA9w","HRdr0tMwVGzX9KODS0-Njw","bZeIEwgEgzGsoI9dST3Iog","5iftmvGbMsiZMftw054YzA","9vktyyQJ0ytOe79M8WyNoA","AS6Izmt9qWCu6_tAosawmQ","WLew5YbXx3QiauG33PJ1Hw","AYWdh7-G26zotW_ml_qP-w","gwfPaaDNkPSSviiy_9eZtA","CGiYnjYf5EdXD0Q8-9T0IQ","wE_3wbtz51HKNUV6Tsa1yA","SdH_PYDF6N47Cb8jdGoZUg","xQzx8zyaMLTlITvNb3xiJg","Zjh0OmA6_M3Ds2J7789Hpg","nwpXNcIq3cMXOgklNfSm-g","9Em_H6JaZwD5d0fjdv49Ig","1m6iq5Kb-R8b2NAiUP8y8g","YCT2Y37WyF5QH-bC63OY6A","wWs5uvaDzNET_bCDoaWbKg","S1hev12Sszl8oRO4KzZXPQ","-eD69qFfgtxEwo2_oXo7Hw","8C6tIzXKy3TbPkT7itHvig","7KyABV3rzDW7tBOuJ5GVow","GX3j330tI7ACG1797biY4Q","uWW9VI91_GU5m-jUiMwJSw","RAWvBdH69NyByfOIU8xT6Q","rXBQ4G1WUlkHk6OxKcTIjQ","IxSdug2lJfMhrcJVzp3EYQ","WqlZmkhdTIUt3gEk9_Xx2g","j_9wG97v9sg_SmO0Twz7FA","29NZWiNpbcTfLxekAge-Ug","zjJjMUmttBa2L_xGIgj8_Q","2wWPu_u4nkAWCMwoXvkUfA","7kSPbk20g0KVEeT5e7VPCg","HQqsevhQBCiM7fq_IKnwUw","7DKzrf6n8-yziRga9spdIA","koyGohdaX9o5Uepdh4kufw","L2og3FFSZzT0mZE9zNDFHw","wajB2DYM6ZdSjT8y7nmmsw","7ORqtoeip53XvZbOITTNbw","RF-gmylCtOwdE_rpL6bVKg","MMAT6ORE0WAaX-253b3KBQ","BHusI93NlNhgHrqgGn5EJg","k9RVnxYPOJHH6i1-pM2Amg","tm21TbBX-LPpHE2Ef_ZVmg","Eu0O3HHSuD42Er_dwd--sA","Z2OeiTa2g5dXO6S7ExNcqQ","kSWtgUV_N2m6r18mrSxHkA","zuT_IdF5xLzu3aV2pCdHRg","OeNZfp8GTSGxge4oWgAMXw","qLWd62vzV1GXYaKEnRRucQ","MdqutSg5G8Gl602oDgaOCA","Ffo9F1-lDAWh7ruyjQRWXw","RSH8UNJgLb63qH5dPf1LTg","DwZzRbNk3rNDW2As3kf8Kg","JiTN02FQhEc0kE_6IsO3BA","S-1i-aA1fF3sLk2Z33WiPg","gpPRQ5My-3SD3N2trJl6bw","VgjBqfwfsKlXfAxM3Pplpw","DE_U6GQP-20v_C8lnxFyRQ","kZx0sQETSqehVIucCx8EZw","klfFYagc-vxNMRV9YPFS3A","JmDIuO6lbn9FvenHqVd3mg","VhIQKsi_yzDOTBO88antvw","JShgH2eqswytusCWu-4Kfg","QJarNlmGA8C05rrgyQOiVg","xjy9pO4CpDJaXNwwp8Nj3Q","RHm1Y3GuOHx8QMzno0KJ5w","ZE5gbxWAhQ67KGM1VvP2mw","RaRWNYZUMUXGOE_0vKDz7Q","GhTuXe9PzHR4ZNYu81B3YQ","2LrcfQGk2FINlUrCu9xJFQ","zI2nwwRSgPuDOFwnYRHguQ","HLFf17C1riTIj0xyJ4Iuyw","Nh6e6fc49PX4bHlPi9OxNA","FhQfbxD36dpsZfiaEpL_jQ","blACiwM0K5MGinWjKPk5Rg","Wb-g1veHP050CERvkVWnnw","uJ5Xh8hE9g-kVo2JWUOunw","8QbHubk2YciSsmm_4RhTzA","2ydhASQ5IVak6DFGysLo_Q","dYiju5t7NeGpSMu3S-t-jg","D6_QM13qrwPJgWOmsXfnyQ","E6FnevuYy6U1kCaGKR89gQ","wpHEoycD3t1Ji32H5MrfYA","vsGonD1kWvJ9_TSFFj8TXw","GqEMqrC2AFfO7GCIbR6i5A","pgNZJdL7gBOHbc_5uFBkiA","1kuA4LDNJSUR6HazQN0mPw","XRQU52CMQlVHI_96cy18Eg","INpneRPoz9m7IcgCrtjwkg","efYH9wtNL7ACldrgAKciGA","04gjZRi60oxpZW4_b-6VFw","ySbbaGYrFmUv_Cz5svcH1w","49Fd66gwlT3hSkwSK-dC_g","XUwb4CLxxInaRV9AOOro0w","8mI1kT3DxANW4asqIcWXrA","9VEuVRASRjIwvHTDOUAX1w","vyc7gtaqcZbYnZDrAvEZvw","wMem9MGkmLlmU5DhwI8UEQ","06I4Vv0ikLggusbuWwY_qQ","gPlopdsr2Drclak4cbYlUg","hViFKiBUM2TiyqSQMu7QKA","0QTwtpCLQc2R48Jg0AGhJg","zn4xVxdkE9RTzaeR3ImLBw","8_e97IkvSN3GmvhjrAJjGA","8cc3_CQ9RTxioN1YaalazQ","69J1sL6c0jTBzfZdtwA6-Q","-Kk2v3Cd23-brKcIzYbKGQ","x25HCfUZpf88tah_4sLLJA","HpVfHdIfzVyJkYKzUjPcXQ","DF6lh44sABbBJCeAPFBmsg","6o9j5CsngmBkSQccx2fyeQ","Uk9mDV9HU5oR4wdrKiQlcQ","ulNL-b4ucHerhcgofKzSQw","VuDzjXgdpbp5DiZr8ij8AQ","vh-katKmCdwln1yYqVaykw","rZ0NyHB_PjwyMSd_CKWbZg","_aivIc4vAjoFRH-4V6hUuw","NZXTzBjGiNZnuyXq_N0Cow","opnWjJN4HOsJ97a9_9P6ZA","T85ItV54SIVfTRmGT-2mjA","fK5xQBtKLTqRZ41C0LC3RQ","7uUxq7uExw-uKfhtmssHvA","-hU49zJQm91Oh7r8IWVDwQ","RXY3Je9gRHGxrPvPjIbvLA","9AoomHRLNJ9KmbQDbYHw8Q","oX-ymMO7FQCg_Dm-Fz2aTA"]
   
     },
     {
-        "uin": "Romantic restaurant with more than 4 stars",
-        "text": "romantic restaurant",
+        "uin": "Reviews with more than 4 stars of Romantic restaurants",
+        "text": "romantic dinner",
         "minStars": 4.0,
         "sentiments": [],
         "relevantID": ["jOdWU_ZW8c5WMZGwt4wF2g","KQxcbtmiK_hK73itBmwaBw","6sCCvSDaN8EXCsfxfWD6eQ","5Mvb0T7oY7nBiBRkaOPkMw","J7cUkh-AcPiPf9bBd1z5Gw","qFKytcloqAciaFD9HwazmQ","buDB5eezeh0mPLn00nhVhg","RMS85Bdr-SWWHUPx8ssycg","WRnDByUVk2OVrcQPjOH5xg","HHw3zxoddkzT0V6bNEDmCg","gl1XzQGD5feEpu3fCq1jjg","6k7G2WJRF_WfCOVSSOD7Ow","b0_RzLDjSIjCh29m9rco_Q","uoAiE_VDR3p0A7V6ziKcxg","QubPj3tp8TMflVFpLTRAaA","LxNF6mumNBuQ1o4ExviNsQ","QxZmtpUaCG-Yv1lqmHtIIQ","YCtJwkX3asMg-LptVxYeaQ","gxa0ff8ocnRhNf59Ln6lJA","lwqXhcJogt0RQWmrEdH6Sg","m6entqXN1rQuJ40dOKHL8A","40-vFgalXfHbTEXrZ_f0gA","yRWwG4x2S3IZiZoqt0XZ0A","CBBQ_L05vH5r64vpGtQJLA","Ng9u7ZWnmoP8qe3WBwLOzA","RxESjg8e7r2w5dZ5jTeYUw","yWO103gBag-6gvZ5mcnBSw","Yz3U_iObGjH4e499isySFw","54Uyuh2GF7DT3Shk-x6qow"]
    
     },
     {
-        "uin": "Cool Ramen place",
+        "uin": "Reviews of cool Ramen placs",
         "text": "ramen",
         "minStars": 0.0,
         "sentiments": ["joy","admiration"],
@@ -57,14 +57,14 @@
       
     },
     {
-        "uin": "Very bad sushi restaurant",
+        "uin": "Reviews of very bad sushi restaurant",
         "text": "bad sushi",
         "minStars": 0.0,
         "sentiments": ["anger","disappointment","neutral"],
         "relevantID": ["qobQ8HXRUDCPdid6vT6ncA","2hUrYvutMKfyUj2QFM4Ljg","yyTx5cE3dsp76zLmujJ_8Q","xBpUamzN61PjHmZWYVuw2Q","S0eNLeCJU8NVbpqtNppX2Q","zypENdpkWwTDlEdbcTdpFA","OeWLH5isgxSh11oJ3SObcw","mfgPSnTyHqAijNbzXuq3Yw","YbK7KhCfC4APNESlLRXl1g","yeo7YnlL4l94cqyewUWv8w","bzV6yJ18crzQMJG-i_yM8w","tzLm5ztEBd_B8aMLtojUyg","5UnQctFwSdXxmCDKUe-OMw","HG2NwmNjuzqTWbfl2dhwlg","COKt1BpLhF7TpzkcA5K2kA","tkJs5Zkro294au1ZmgoC_w","A6XDiJqJhy5Rwz7qZiX5wQ","xqjUWFlUPqezaJcV8saWdA","n0KhSiRBvLlMOVA6oYt0qg","DwNwMnF49wS0ch6VD80q_w","8vFdEkn2MkjZgUGk_Mjmmg","jp3SHjYusUPWzyb_NSi9WQ","6cZvjoaymkT46vKJx-PPrQ","z35ls5qeWktnJsvpxzj07g","Dy5jWV6l5e0lN36KFGwh6g"]
     },
     {
-        "uin": "Cheap Pizza places",
+        "uin": "Reviews of cheap Pizza places",
         "text": "cheap pizza",
         "minStars": 0.0,
         "sentiments": ["joy","admiration","neutral"],
@@ -72,7 +72,7 @@
       
     },
     {
-        "uin": "Vietnamese noodle restaurant with more than 4 stars",
+        "uin": "Reviews with more than 4 stars of vietnamese noodle restaurant ",
         "text": "vietnamese noodle",
         "minStars": 4.0,
         "sentiments": [],

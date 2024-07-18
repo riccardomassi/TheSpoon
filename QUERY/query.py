@@ -50,7 +50,7 @@ def prettyPrintResult(result):
     print("Restaurant stars: " + str(result["restaurantStars"]))
     print("-" * 20)
     print(result["reviewText"])
-    print("Review stars: " + str(result["reviewStars"]) + " Review date: " + str(result["reviewTime"]))
+    print("Review stars: " + str(result["reviewStars"]) +"\n"+ " Review date: " + str(result["reviewTime"]))
     
 def spell_check_phrase(phrase):
     # Tokenize the phrase into words

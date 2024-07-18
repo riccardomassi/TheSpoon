@@ -23,7 +23,7 @@ def callOnQuerySearch():
                 request_data['checked'],
                 request_data['sentiment'],
                 True,
-                True,
+                False,
                 30)
             return jsonify({"results": results, "new_phrase": new_phrase})
         except Exception as e:

@@ -26,6 +26,8 @@ To start benchmarking run `make benchmark` or `python ./runBenchmark.py`. The re
 
 The benchmarking data can be deleted by running `make delete benchmark`.
 
+The benchmarking suite has both automatic and manual tools. The user will be asked to perform the manual evaluation of the queries by which the NDCG will be calculated.
+
 ## Starting up
 To start up TheSpoon it is sufficient to run `make start`, then head to our [Vercel deployment](https://thespoon.vercel.app).
 
