@@ -135,7 +135,7 @@ def generateSentimentFilter(sentimentTags,index):
 
 def runQuerySearch(index, text, minStarRating, sortTags, useQueryExpansion, sentimentTags, useDefaultRanking, useOrGroup, resultLimit):
     with index.searcher(weighting=selectScoringModel(useDefaultRanking)) as searcher:
-        parser = MultifieldParser(["restaurantName", "restaurantCategories", "reviewText", "restaurantAddress"],
+        parser = MultifieldParser(["resturantName", "restaurantCategories", "reviewText", "restaurantAddress"],
                                   schema=index.schema, group=selectGroupingType(useOrGroup))
         queryList = [parser.parse(text)]
         filterList = []

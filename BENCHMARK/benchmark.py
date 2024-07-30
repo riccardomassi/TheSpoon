@@ -74,7 +74,10 @@ def rPrec(query,results):
     for i in range(1,11):
         num_relevant = math.ceil(len(relevant)*(i/10))
         q_size_for_rel = passOnResults(resID,relevant,num_relevant)
-        values.append((i/10,(q_size_for_rel[1]/q_size_for_rel[0])))
+        if q_size_for_rel[1] < num_relevant:
+            values.append((i/10,0))
+        else:
+            values.append((i/10,(q_size_for_rel[1]/q_size_for_rel[0])))
     return values
 
 
@@ -99,8 +102,8 @@ def benchmarkQuery(dir,name,queryExpansion,useOrGroup,useDefaultRanking):
                 output.write(f"{r[0]}: {r[1]}\n")
             avg /= len(rpc)
             output.write(f"\nMAP: {avg}")
-            ndcg = calcNDCG(getRelevance(uin,R[0][:10]))
-            output.write(f"\nNDCG: {ndcg}\n")
+            #ndcg = calcNDCG(getRelevance(uin,R[0][:10]))
+            #output.write(f"\nNDCG: {ndcg}\n")
             print("\n"*50)
 
 
