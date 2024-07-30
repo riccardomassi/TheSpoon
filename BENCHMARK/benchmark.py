@@ -102,8 +102,8 @@ def benchmarkQuery(dir,name,queryExpansion,useOrGroup,useDefaultRanking):
                 output.write(f"{r[0]}: {r[1]}\n")
             avg /= len(rpc)
             output.write(f"\nMAP: {avg}")
-            #ndcg = calcNDCG(getRelevance(uin,R[0][:10]))
-            #output.write(f"\nNDCG: {ndcg}\n")
+            ndcg = calcNDCG(getRelevance(uin,R[0][:10]))
+            output.write(f"\nNDCG: {ndcg}\n")
             print("\n"*50)
 
 
