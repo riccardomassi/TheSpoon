@@ -35,4 +35,8 @@ The benchmarking suite has both automatic and manual tools. The user will be ask
 To start up TheSpoon it is sufficient to run `make start`, then head to our [Vercel deployment](https://thespoon.vercel.app).
 
 ## Authors
- University of Modena and Reggio Emilia undergraduates in Computer Science [@riccardomassi](https://github.com/riccardomassi/) and [@filipczuba](https://github.com/filipczuba/).
+University of Modena and Reggio Emilia undergraduates in Computer Science [@riccardomassi](https://github.com/riccardomassi/) and [@filipczuba](https://github.com/filipczuba/).
+
+## Licences
+This project is licensed under the MIT License.
+
