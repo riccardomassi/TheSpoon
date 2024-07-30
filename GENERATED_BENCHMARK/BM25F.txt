@@ -12,6 +12,7 @@ R-Precision:
 1.0: 0.7129186602870813
 
 MAP: 0.849153808593365
+NDCG: 1.0
 
 Query: Find reviews of with more than 3 stars of McDonald's Restaurants
 R-Precision:
@@ -26,7 +27,10 @@ R-Precision:
 0.9: 0.984375
 1.0: 0.9859154929577465
 
-MAP: 0.9881713041577356Query: Bad Italian Restaurants
+MAP: 0.9881713041577356
+NDCG: 1.0
+
+Query: Bad Italian Restaurants
 R-Precision:
 0.1: 0.16666666666666666
 0.2: 0.04854368932038835
@@ -39,7 +43,10 @@ R-Precision:
 0.9: 0.013592233009708738
 1.0: 0.01375598086124402
 
-MAP: 0.036173820938528695Query: Vegetarian restaurants
+MAP: 0.036173820938528695
+NDCG: 0.632
+
+Query: Vegetarian restaurants
 R-Precision:
 0.1: 0.0847457627118644
 0.2: 0.15294117647058825
@@ -52,7 +59,10 @@ R-Precision:
 0.9: 0
 1.0: 0
 
-MAP: 0.023768693918245265Query: Find reviews with more than 3 stars of Cafes in Florida
+MAP: 0.023768693918245265
+NDCG: 0.79
+
+Query: Find reviews with more than 3 stars of Cafes in Florida
 R-Precision:
 0.1: 0.6363636363636364
 0.2: 0.6363636363636364
@@ -65,7 +75,10 @@ R-Precision:
 0.9: 0
 1.0: 0
 
-MAP: 0.2874185948731244Query: Reviews with more than 4 stars of Romantic restaurants
+MAP: 0.2874185948731244
+NDCG: 0.975
+
+Query: Reviews with more than 4 stars of Romantic restaurants
 R-Precision:
 0.1: 1.0
 0.2: 1.0
@@ -78,7 +91,10 @@ R-Precision:
 0.9: 0
 1.0: 0
 
-MAP: 0.3Query: Reviews of cool Ramen placs
+MAP: 0.3
+NDCG: 0.945
+
+Query: Reviews of cool Ramen placs
 R-Precision:
 0.1: 1.0
 0.2: 0.8333333333333334
@@ -91,7 +107,10 @@ R-Precision:
 0.9: 0.0028548123980424145
 1.0: 0.0031258494156020658
 
-MAP: 0.27048830001269564Query: Reviews of very bad sushi restaurant
+MAP: 0.27048830001269564
+NDCG: 0.914
+
+Query: Reviews of very bad sushi restaurant
 R-Precision:
 0.1: 0.75
 0.2: 0.07246376811594203
@@ -104,7 +123,10 @@ R-Precision:
 0.9: 0.016428571428571428
 1.0: 0
 
-MAP: 0.1004070372443793Query: Reviews of cheap Pizza places
+MAP: 0.1004070372443793
+NDCG: 0.614
+
+Query: Reviews of cheap Pizza places
 R-Precision:
 0.1: 0.45454545454545453
 0.2: 0.5263157894736842
@@ -117,7 +139,10 @@ R-Precision:
 0.9: 0.004205888243540957
 1.0: 0
 
-MAP: 0.3581121519230606Query: Reviews with more than 4 stars of vietnamese noodle restaurant 
+MAP: 0.3581121519230606
+NDCG: 0.984
+
+Query: Reviews with more than 4 stars of vietnamese noodle restaurant 
 R-Precision:
 0.1: 1.0
 0.2: 0.8571428571428571
@@ -131,3 +156,4 @@ R-Precision:
 1.0: 0
 
 MAP: 0.41448433919022154
+NDCG: 0.976
