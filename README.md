@@ -7,7 +7,7 @@ TheSpoon is a tool for searching trough restaurant reviews, built by food enjoye
 
 TheSpoon utilizes Sentiment Analysis and Information Retrieval techniques to allow users to search trough a selection of reviews of restaurants throughout the USA, accessible trough a JavaScript front-end.
 <div align="center">
-  <img width="640" height="480" src="https://github.com/riccardomassi/TheSpoon/blob/main/video.gif">
+  <img width="800" height="410" src="https://github.com/riccardomassi/TheSpoon/blob/main/video.gif">
 </div>
 
 ## Requirements
